@@ -1,38 +1,37 @@
-from flask import Flask
-from flask import request
-from flask import session, g, redirect, url_for, abort, render_template, flash
-import sqlites
+# -*- coding: utf-8 -*-
 
+from flask_script import Manager
+from flask_script import Server
+from flask_script import prompt_bool
 
-#configuration
-DATEBASE = '/tmp/endgame.db'
-USERNAME='admin'
-PASSWORD='default'
-DEBUG= True
+from app.myapp import create_app
+from app.extensions import db
+from app import models
 
+app = create_app()
 
-#app = Flask(__name__)
+# flask_script -> add application of command line parameters
+# Calling manager.run() prepares your Manager instance to receive input from the command line.
+# called -> python manage.py runserver
 
-#@app.route('/', methods=['GET', 'POST'])
-#def home():
-    #return '<h1>Game Over</h1>'
+manager = Manager(app)
 
-#@app.route('/signin', methods=['GET'])
-#def signin_form():
-    #return '''<form action='/signin' methon='post'>
-              #<p><input name ='username'></p>
-              #<p><input name ='password' type="password"></p>
-              #<p><button type="submit">Sign In</button></p>
-	      #</form>'''
+@manager.command
+def createall():
+    "Creates database tables"
+    db.create_all()
 
-#@app.route('/signin', methods=['POST'])
-#def signin_form():
-    #if request.form['username']=='admin' and request.form['password']=='password':
-        #return '<h3>Hello, admin!</h>'
-    #return '<h3>Bad username or password!</h3>'
+@manager.command
+def dropall():
+    "Drops all database tables"
+
+    if prompt_bool("Are you sure ? You will lose all your data !"):
+        db.drop_all()
+
+manager.add_command("runserver", Server(host='0.0.0.0', port=5555))
 
 
 if __name__=='__main__':
-    app.run('0.0.0.0')
+    manager.run()
 
 

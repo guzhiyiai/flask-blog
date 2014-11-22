@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" href="/static/style/styles.css">
+	<title>{% include "_blog_name.html" %} -- 又一个FBlog!</title>
+</head>
+<body>
+<div id="top"></div>
+
+<div id="header"><a href='/'><h1><b>{% include "_blog_name.html" %}</b></h1></a></div>
+<div id="line"></div>
+
+<div id="main">
+{% for message in get_flashed_messages() %}
+  <div class=flash>{{ message }}</div>
+{% endfor %}
+{% block main %}
+{% endblock %}
+
+</div> <!-- end main -->
+
+<div id="footer">
+<p>Copyright (c) 2011 <a href="https://bitbucket.org/wwq0327/fblog">FBlog project</a> by <a href="mailto:wwq0327@gmail.com">wwq0327</a>. Powered by <a href="http://flask.pocoo.org" style="border: none"><img src="/static/img/flask-logo.png" alt="Flask"></a></p>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.flash').fadeOut(3000);
+    });
+</script>
+</body>
+</html>
