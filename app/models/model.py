@@ -105,6 +105,16 @@ class Comment(db.Model):
 
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
+
+    def __init__(self, name, email, comments):
+        self.name = name
+        self.email = email
+        self.comments = comments
+
+    def __init__(self, *args, **kwargs):
+        super(Comment, self).__init__(*args, **kwargs)
+
+
     def to_dict(self):
         return dict(
             id         = self.id,

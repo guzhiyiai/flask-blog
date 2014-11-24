@@ -7,6 +7,14 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo
 from app.models import User
 
 
+class CommentsForm(Form):
+    name = TextField(u"name(必填)", [validators.Required("name")])
+    email = TextField(u"email(必填)", [validators.Required("email")])
+    comments = TextAreaField(u"comment", [validators.Required("comment")])
+    submit = SubmitField(u"Comment")
+
+
+
 class PostForm(Form):
     title = TextField('title', [validators.Required("title")])
     content = TextAreaField('content', [validators.Required("content")])
