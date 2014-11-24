@@ -6,6 +6,13 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 from app.models import User
 
+
+class PostForm(Form):
+    title = TextField('title', [validators.Required("title")])
+    content = TextAreaField('content', [validators.Required("content")])
+    submit = SubmitField('Post')
+
+
 class SignupForm(Form):
     username = TextField("User name",  [validators.Required("Please enter your name.")])
     email = TextField("Email",  [validators.Required("Please enter your email address."), validators.Email("Please enter your email address.")])

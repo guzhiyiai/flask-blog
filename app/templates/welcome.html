@@ -13,10 +13,10 @@
         <ul class="menu">
           <li><a href="{{ url_for('.home') }}">Home</a></li>
           <li><a href="{{ url_for('.about') }}">About</a></li>
+          <li><a href="{{ url_for('.add_entry') }}">Add Post</a></li>
           {% if 'email' in session %}
           <li><a href="{{ url_for('admin.signout') }}">Sign Out</a></li>
           {% else %}
-          <li><a href="{{ url_for('admin.signup') }}">Sign Up</a></li>
           <li><a href="{{ url_for('admin.signin') }}">Sign In</a></li>
           {% endif %}
         </ul>

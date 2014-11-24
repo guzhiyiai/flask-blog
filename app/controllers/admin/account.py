@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from flask import Module
-from flask import render_template
 from flask import flash, redirect, render_template, request, url_for, session
 from flask_login import login_user, login_required, logout_user
 from flask.ext.login import LoginManager

@@ -6,3 +6,4 @@ bp = Blueprint('admin', __name__)
 
 
 from . import account
+from . import post

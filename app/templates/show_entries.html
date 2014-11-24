@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% block body %}
+
+  <ul class=entries>
+  {% for post in posts %}
+    <h2>{{ post.title }}</h2>{{ post.context|safe }}
+  {% else %}
+    <li><em>Unbelievable.  No entries here so far</em>
+  {% endfor %}
+  </ul>
+{% endblock %}

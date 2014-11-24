@@ -70,6 +70,11 @@ class Post(db.Model):
 
     user_id     = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+    def __init__(self, title, content):
+        self.title = title
+        self.content = content
+
+
     def to_dict(self):
         return dict(
             id = self.id,
