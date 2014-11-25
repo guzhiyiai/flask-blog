@@ -1,0 +1,11 @@
+Flask==0.10.1
+Flask-Bootstrap==3.3.0.1
+Flask-Login==0.2.11
+Flask-SQLAlchemy==2.0
+Flask-Script==2.0.5
+Flask-WTF==0.10.3
+Jinja2==2.7.3
+MySQL-python==1.2.5
+SQLAlchemy==0.9.8
+WTForms==2.0.1
+Werkzeug==0.9.6
