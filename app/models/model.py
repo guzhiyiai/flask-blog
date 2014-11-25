@@ -111,8 +111,9 @@ class Comment(db.Model):
         self.email = email
         self.comments = comments
 
-    def __init__(self, *args, **kwargs):
-        super(Comment, self).__init__(*args, **kwargs)
+    def store_to_db(self):
+        db.session.add(self)
+        db.session.commit()
 
 
     def to_dict(self):

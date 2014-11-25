@@ -21,40 +21,43 @@ def test(page=1):
     if page < 1: page = 1
 
     topwz = Post.query.order_by('-id').limit(10)
+    topcs = Comment.query.order_by('-id').limit(10)
     page_obj = Post.query.order_by("-id").paginate(page, per_page=5)
     page_url = lambda page: url_for(".test", page=page)
 
-    return render_template('test.html', page_obj=page_obj, page_url=page_url, topwz=topwz)
+    return render_template('test.html', page_obj=page_obj, page_url=page_url, topwz=topwz, topcs=topcs)
 
 @bp.route('/post/<int:id>/entry', methods=['GET', 'POST'])
 def entry(id):
-    # form = CommentsForm(request.form)
+    form = CommentsForm(request.form)
     topwz = Post.query.order_by("-id").limit(10)
-    # topcs = Comments.query.order_by('-id').limit(10)
+    topcs = Comment.query.order_by('-id').limit(10)
     page = Post.query.filter_by(id=id).first()
-    # cs = Comments.query.filter_by(eid=id)
+    cs = Comment.query.filter_by(id=id)
+    print "xxxxxxx"
 
-    if request.method == 'POST' and form.validate_on_submit():
-        eid = id
+    if request.method == 'POST':
+
         name = form.name.data
         email = form.email.data
-        website = form.website.data
         comments = form.comments.data
 
-        # c = Comments(eid=eid,
-        #              name=name,
-        #              email=email,
-        #              website=website,
-        #              comments=comments)
-        # try:
-        #     c.store_to_db()
-        #     flash(u'评论成功')
-        # except:
-        #     flash(u'失败')
+        c = Comment(
+                     name=name,
+                     email=email,
+                     comments=comments)
+        try:
+            c.store_to_db()
+            flash(u'评论成功')
+        except:
+            flash(u'失败')
 
-        return redirect(url_for('blog.entry', id=id))
+        # return render_template('show_entries.html')
 
-    return render_template('/entry.html', page=page, topwz=topwz, form=form, cs=cs, topcs=topcs)
+        return render_template('entry.html', page=page, topwz=topwz, form=form, cs=cs, topcs=topcs)
+
+
+    return render_template('entry.html', page=page, topwz=topwz, form=form, cs=cs, topcs=topcs)
 
 
 

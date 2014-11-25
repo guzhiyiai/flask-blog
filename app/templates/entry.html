@@ -1,0 +1,39 @@
+{% extends "test_base.html" %}
+
+{% block main %}
+<div id="content">
+<div id="article">
+<dl>
+<dt><a href="/admin/post/{{ page.id}}/entry">{{ page.title }}</a></dt>
+<dd>{{ page.content|safe }}</dd>
+
+</dl>
+</div> <!-- end article -->
+
+<div id="comments">
+
+<h3>评论</h3>
+{% if not cs %}
+    <b>暂无评论</b>
+{% else %}
+    {%for comment in cs %}
+        <dt id="csfont">
+        <img src="{{ comment.email }}" style="float:right">
+    {% endfor %}
+{% endif %}
+<a name="comments"></a>
+{% include "_comment.html" %}
+
+</div>
+</div> <!-- end content -->
+
+<div id="sidebar">
+
+<div id="list">
+
+
+
+</div> <!-- end list -->
+
+</div> <!-- end sidebar -->
+{% endblock %}
