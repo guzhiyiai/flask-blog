@@ -3,8 +3,7 @@
 from datetime import datetime
 
 from werkzeug import generate_password_hash, check_password_hash
-# from flaskext.login import AnonymousUser
-# from app.myapp import bcrypt
+
 from app.extensions import db
 
 
@@ -22,32 +21,31 @@ class User(db.Model):
     username = db.Column(db.String(50))
     password = db.Column(db.String(300))
     email = db.Column(db.String(100), unique=True)
-    role    = db.Column(db.Integer, index=True, default=UserRole.USER, nullable=False)
-    created_at  = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at  = db.Column(db.DateTime, default=datetime.utcnow)
+    role = db.Column(db.Integer, index=True, default=UserRole.USER, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow)
     posts = db.relationship('Post')
 
-    def is_active(self):
-        return True
+    # def is_active(self):
+    #     return True
 
-    def __init__(self, username, password, email):
-        self.username = username
-        self.email = email
-        self.set_password(password)
+    # def __init__(self, username, password, email):
+    #     self.username = username
+    #     self.email = email
+    # #     self.set_password(password)
 
-    def set_password(self, password):
-        self.password = generate_password_hash(password)
+    # def set_password(self, password):
+    #     self.password = generate_password_hash(password)
 
-    def check_password(self, password):
-        return check_password_hash(self.password, password)
+    # def check_password(self, password):
+    #     return check_password_hash(self.password, password)
 
     def to_dict(self):
         return dict(
-                id = self.id,
-                username = self.username,
-                email = self.email,
-                role = self.role
-            )
+            id=self.id,
+            username=self.username,
+            email=self.email,
+            role=self.role)
 
 
 class PostStatus:
@@ -68,21 +66,20 @@ class Post(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
     comments = db.relationship('Comment')
 
-    user_id     = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, title, content):
-        self.title = title
-        self.content = content
-
+    # def __init__(self, title, content):
+    #     self.title = title
+    #     self.content = content
 
     def to_dict(self):
         return dict(
-            id = self.id,
-            title = self.title,
-            content = self.content,
-            status = self.status,
-            created_at = self.created_at,
-            updated_at = self.updated_at
+            id=self.id,
+            title=self.title,
+            content=self.content,
+            status=self.status,
+            created_at=self.created_at,
+            updated_at=self.updated_at
         )
 
 
@@ -105,22 +102,16 @@ class Comment(db.Model):
 
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
-
-    def __init__(self, name, email, comments):
-        self.name = name
-        self.email = email
-        self.comments = comments
-
-    def store_to_db(self):
-        db.session.add(self)
-        db.session.commit()
-
+    # def __init__(self, name, email, comments):
+    #     self.name = name
+    #     self.email = email
+    #     self.comments = comments
 
     def to_dict(self):
         return dict(
-            id         = self.id,
-            content    = self.content,
-            created_at = self.created_at,
-            post_id    = self.post_id,
-            show       = self.show
+            id=self.id,
+            content=self.content,
+            created_at=self.created_at,
+            post_id=self.post_id,
+            show=self.show
         )

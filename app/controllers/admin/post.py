@@ -8,24 +8,24 @@ from app.models import Post, Comment
 from app.extensions import db
 from app.forms import PostForm, CommentsForm
 
-from flask_login import  current_user, LoginManager
-
-
-login_manager = LoginManager()
-
+from flask_login import current_user, LoginManager
 
 
 @bp.route('/')
 @bp.route('/page/<int:page>')
-def test(page=1):
-    if page < 1: page = 1
+def page(page=1):
+
+    if page < 1:
+        page = 1
 
     topwz = Post.query.order_by('-id').limit(10)
     topcs = Comment.query.order_by('-id').limit(10)
     page_obj = Post.query.order_by("-id").paginate(page, per_page=5)
-    page_url = lambda page: url_for(".test", page=page)
+    page_url = lambda page: url_for(".page", page=page)
 
-    return render_template('test.html', page_obj=page_obj, page_url=page_url, topwz=topwz, topcs=topcs)
+    return render_template('page.html', page_obj=page_obj,
+                           page_url=page_url, topwz=topwz, topcs=topcs)
+
 
 @bp.route('/post/<int:id>/entry', methods=['GET', 'POST'])
 def entry(id):
@@ -34,7 +34,6 @@ def entry(id):
     topcs = Comment.query.order_by('-id').limit(10)
     page = Post.query.filter_by(id=id).first()
     cs = Comment.query.filter_by(id=id)
-    print "xxxxxxx"
 
     if request.method == 'POST':
 
@@ -43,27 +42,18 @@ def entry(id):
         comments = form.comments.data
 
         c = Comment(
-                     name=name,
-                     email=email,
-                     comments=comments)
+            name=name,
+            email=email,
+            comments=comments)
         try:
             c.store_to_db()
             flash(u'评论成功')
         except:
             flash(u'失败')
 
-        # return render_template('show_entries.html')
-
         return render_template('entry.html', page=page, topwz=topwz, form=form, cs=cs, topcs=topcs)
 
-
     return render_template('entry.html', page=page, topwz=topwz, form=form, cs=cs, topcs=topcs)
-
-
-
-
-
-
 
 
 @bp.route('/', methods=['GET', 'POST'])
@@ -82,10 +72,9 @@ def add_entry():
     if request.method == 'GET':
         return render_template("add_entries.html")
 
-
     form = PostForm(request.form)
 
-    new_post = Post(form.title.data,form.content.data)
+    new_post = Post(form.title.data, form.content.data)
     db.session.add(new_post)
     db.session.commit()
     flash('New entry was successfully posted. Thanks.')

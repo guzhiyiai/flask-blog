@@ -11,8 +11,6 @@
       <h1 class="logo">Flask App</h1>
       <nav>
         <ul class="menu">
-          <li><a href="{{ url_for('.home') }}">Home</a></li>
-          <li><a href="{{ url_for('.about') }}">About</a></li>
           <li><a href="{{ url_for('.add_entry') }}">Add Post</a></li>
           {% if 'email' in session %}
           <li><a href="{{ url_for('admin.signout') }}">Sign Out</a></li>

@@ -14,7 +14,6 @@ class CommentsForm(Form):
     submit = SubmitField(u"Comment")
 
 
-
 class PostForm(Form):
     title = TextField('title', [validators.Required("title")])
     content = TextAreaField('content', [validators.Required("content")])
@@ -34,7 +33,7 @@ class SignupForm(Form):
         if not Form.validate(self):
             return False
 
-        user = User.query.filter_by(email = self.email.data.lower()).first()
+        user = User.query.filter_by(email=self.email.data.lower()).first()
         if user:
             self.email.errors.append("That email is already taken")
             return False
@@ -54,7 +53,7 @@ class SigninForm(Form):
         if not Form.validate(self):
             return False
 
-        user = User.query.filter_by(email = self.email.data.lower()).first()
+        user = User.query.filter_by(email=self.email.data.lower()).first()
         if user and user.check_password(self.password.data):
             return True
         else:

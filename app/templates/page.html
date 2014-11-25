@@ -3,6 +3,7 @@
 {% from "_helpers.html" import paginate %}
 
 {% block main %}
+<li><a href="{{ url_for('admin.signin') }}">Sign In</a></li>
 <div id="content">
 <div id="article">
 {% if page_obj %}
