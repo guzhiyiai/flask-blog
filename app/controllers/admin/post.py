@@ -7,8 +7,7 @@ from . import bp
 from app.models import Post, Comment
 from app.extensions import db
 from app.forms import PostForm, CommentsForm
-
-from flask_login import current_user, LoginManager
+from app.service import PostService
 
 
 @bp.route('/')
@@ -46,7 +45,7 @@ def entry(id):
             email=email,
             comments=comments)
         try:
-            c.store_to_db()
+            c.PostService.store_to_db()
             flash(u'评论成功')
         except:
             flash(u'失败')
@@ -74,9 +73,8 @@ def add_entry():
 
     form = PostForm(request.form)
 
-    new_post = Post(form.title.data, form.content.data)
-    db.session.add(new_post)
-    db.session.commit()
+    post = PostService.add_post(form.title.data, form.content.data)
+
     flash('New entry was successfully posted. Thanks.')
 
     posts = Post.query.order_by('-id').limit(10)
