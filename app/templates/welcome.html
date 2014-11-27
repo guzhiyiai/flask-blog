@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Flask App</title>
+    <title>Admin Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   </head>
   <body>
 
   <header>
     <div class="container">
-      <h1 class="logo">Flask App</h1>
+      <h1 class="logo">Admin Page</h1>
       <nav>
         <ul class="menu">
+          <li><a href="{{ url_for('.index') }}">Post List</a></li>
           <li><a href="{{ url_for('.add_entry') }}">Add Post</a></li>
           {% if 'email' in session %}
           <li><a href="{{ url_for('admin.signout') }}">Sign Out</a></li>

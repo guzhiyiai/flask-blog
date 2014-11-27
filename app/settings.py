@@ -14,5 +14,5 @@ class DefaultConfig(object):
 
     # datebase
     SQLALCHEMY_DATABASE_URI = "mysql://%s:%s@%s/%s" % (
-        'root', 'abc123', 'localhost', 'test1')
+        'root', 'abc123', 'localhost', 'test3')
     SQLALCHEMY_ECHO = True

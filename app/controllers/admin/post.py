@@ -9,73 +9,58 @@ from app.extensions import db
 from app.forms import PostForm, CommentsForm
 from app.service import PostService
 
-
 @bp.route('/')
 @bp.route('/page/<int:page>')
-def page(page=1):
-
+def index(page=1):
     if page < 1:
         page = 1
-
-    topwz = Post.query.order_by('-id').limit(10)
-    topcs = Comment.query.order_by('-id').limit(10)
     page_obj = Post.query.order_by("-id").paginate(page, per_page=5)
-    page_url = lambda page: url_for(".page", page=page)
+    page_url = lambda page: url_for(".index", page=page)
 
-    return render_template('page.html', page_obj=page_obj,
-                           page_url=page_url, topwz=topwz, topcs=topcs)
+    return render_template('index.html', page_obj=page_obj, page_url=page_url)
 
 
 @bp.route('/post/<int:id>/entry', methods=['GET', 'POST'])
 def entry(id):
     form = CommentsForm(request.form)
-    topwz = Post.query.order_by("-id").limit(10)
-    topcs = Comment.query.order_by('-id').limit(10)
     page = Post.query.filter_by(id=id).first()
-    cs = Comment.query.filter_by(id=id)
+    # cs = Comment.query.all()
+    cs = Comment.query.filter_by(post_id=id)
 
-    if request.method == 'POST':
+    if request.method == "GET":
+        return render_template('entry.html', page=page, cs=cs, form=form)
+    name = form.name.data
+    email = form.email.data
+    comments = form.comments.data
 
-        name = form.name.data
-        email = form.email.data
-        comments = form.comments.data
+    c = Comment(
+                 post_id = id,
+                 name=name,
+                 email=email,
+                 comments=comments)
+    try:
+        c.store_to_db()
+        flash('Comments added successfully!')
+    except:
+        flash('Failed to add a comment')
 
-        c = Comment(
-            name=name,
-            email=email,
-            comments=comments)
-        try:
-            c.PostService.store_to_db()
-            flash(u'评论成功')
-        except:
-            flash(u'失败')
-
-        return render_template('entry.html', page=page, topwz=topwz, form=form, cs=cs, topcs=topcs)
-
-    return render_template('entry.html', page=page, topwz=topwz, form=form, cs=cs, topcs=topcs)
-
-
-@bp.route('/', methods=['GET', 'POST'])
-def show_entries():
-    error = None
-    form = PostForm(request.form)
-
-    posts = Post.query.order_by('-id').limit(10)
-
-    return render_template('show_entries.html', posts=posts, form=form, error=error)
+    return render_template('entry.html', page=page, cs=cs, form=form)
 
 
 @bp.route('/add', methods=['GET', 'POST'])
 def add_entry():
-
-    if request.method == 'GET':
-        return render_template("add_entries.html")
-
     form = PostForm(request.form)
+    if request.method == "GET":
+        return render_template('add_entry.html', form=form)
 
-    post = PostService.add_post(form.title.data, form.content.data)
+    title = form.title.data
+    content = form.content.data
 
-    flash('New entry was successfully posted. Thanks.')
+    try:
+        post = PostService.add_post(title, content)
+        flash(u'文章存入成功')
+    except:
+        flash(u'文章存入失败，请与管理员联系')
 
-    posts = Post.query.order_by('-id').limit(10)
-    return render_template('show_entries.html', posts=posts, form=form)
+    return render_template('admin_index.html')
+

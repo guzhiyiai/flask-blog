@@ -29,16 +29,16 @@ class User(db.Model):
     # def is_active(self):
     #     return True
 
-    # def __init__(self, username, password, email):
-    #     self.username = username
-    #     self.email = email
-    # #     self.set_password(password)
+    def __init__(self, username, password, email):
+        self.username = username
+        self.email = email
+        self.set_password(password)
 
-    # def set_password(self, password):
-    #     self.password = generate_password_hash(password)
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
 
-    # def check_password(self, password):
-    #     return check_password_hash(self.password, password)
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
     def to_dict(self):
         return dict(
@@ -101,6 +101,11 @@ class Comment(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
 
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+
+    def store_to_db(self):
+
+        db.session.add(self)
+        db.session.commit()
 
     # def __init__(self, name, email, comments):
     #     self.name = name
