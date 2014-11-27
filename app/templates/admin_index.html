@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% block main %}
+<h1>后台管理</h1>
     {% if 'email' in session %}
-    <li><a href="{{ url_for('.index') }}">Post List</a></li>
-    <li><a href="{{ url_for('.add_entry') }}">Add Post</a><li>
-    <li><a href="{{ url_for('admin.signout') }}">Sign Out</a></li>
+    <li><a href="{{ url_for('.index') }}">文章管理</a></li>
+    <li><a href="{{ url_for('.add_entry') }}">添加文章</a><li>
+    <li><a href="{{ url_for('admin.signout') }}">退出</a></li>
     {% else %}
-    <li><a href="{{ url_for('admin.signin') }}">Sign In</a></li>
+    <li><a href="{{ url_for('admin.signin') }}">登录</a></li>
     {% endif %}
 {% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% from "_helpers.html" import paginate %}
+{% block main %}
+
+{% if page_obj %}
+<div id="adminlist">
+    {% for page in page_obj.items %}
+    <ul>
+        <li style="font-size:0.8em;">
+        <a href="/post/{{ page.id }}/entry">{{ page.title }}</a>
+        <span style="float:right">
+        [<a href="/admin/{{ page.id }}/edit">编辑</a>]
+        [<a href="/admin/{{ page.id }}/del">删除</a>]
+        </span>
+        </li>
+     </ul>
+</div>
+    {% endfor %}
+{% else %}
+    暂无内容
+{% endif %}
+
+{{ paginate(page_obj, page_url) }}
+
+{% endblock %}

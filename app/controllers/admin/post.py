@@ -2,13 +2,13 @@
 
 from flask import flash, redirect, render_template, request, url_for, session
 
-from . import bp
-
 from app.models import Post, Comment
 from app.extensions import db
 from app.forms import PostForm, CommentsForm
 from app.service.post import PostService
 from app.service.comment import CommentService
+
+from . import bp
 
 @bp.route('/')
 @bp.route('/page/<int:page>')
@@ -54,10 +54,44 @@ def add_entry():
     content = form.content.data
 
     try:
-        post = PostService.add_post(title, content)
+        post = PostService.add_entry(title, content)
         flash(u'文章存入成功')
     except:
         flash(u'文章存入失败，请与管理员联系')
+
+    return render_template('admin_index.html')
+
+
+@bp.route('/<int:id>/del', methods=['GET', 'POST'])
+def del_entry(id):
+    entry = Post.query.filter_by(id=id).first()
+    try:
+        post = PostService.del_entry(entry)
+        flash(u'文章删除成功')
+    except:
+        flash(u'文章删除失败，请与管理员联系')
+
+    page_obj = Post.query.order_by("-id").paginate(2, per_page=5)
+    page_url = lambda page: url_for(".index", page=page)
+
+    return render_template('del_entry.html', page_obj=page_obj, page_url=page_url)
+
+
+@bp.route('/<int:id>/edit', methods=['GET', 'POST'])
+def edit_entry(id):
+    entry = Post.query.filter_by(id=id).first()
+    form = PostForm(title=entry.title, content=entry.content)
+    if request.method == "GET":
+        return render_template('edit_entry.html', form=form)
+
+    title = request.form['title']
+    content = request.form['content']
+
+    try:
+        post = PostService.edit_entry(id, title, content)
+        flash(u'文章删除成功')
+    except:
+        flash(u'文章删除失败，请与管理员联系')
 
     return render_template('admin_index.html')
 
