@@ -1,4 +1,4 @@
-{% extends "test_base.html" %}
+{% extends "base.html" %}
 
 {% from "_helpers.html" import paginate %}
 
@@ -11,7 +11,7 @@
 <dl>
 {% for page in page_obj.items %}
     <dt><a href="/admin/post/{{ page.id }}/entry">{{ page.title|safe }}</a></dt>
-    <dd>{{ page.content|safe }} </dd>
+    <!-- <dd>{{ page.content|safe }} </dd> -->
 {% endfor %}
 </dl> <!-- 文章列表尾 -->
 {% else %}

@@ -1,8 +1,10 @@
-{% extends "test_base.html" %}
+{% extends "base.html" %}
 {% block main %}
-{% include "_mnnav.html" %}
-
-<h1>后台面版</h1>。
-
-<p></p>
+    {% if 'email' in session %}
+    <li><a href="{{ url_for('.index') }}">Post List</a></li>
+    <li><a href="{{ url_for('.add_entry') }}">Add Post</a><li>
+    <li><a href="{{ url_for('admin.signout') }}">Sign Out</a></li>
+    {% else %}
+    <li><a href="{{ url_for('admin.signin') }}">Sign In</a></li>
+    {% endif %}
 {% endblock %}

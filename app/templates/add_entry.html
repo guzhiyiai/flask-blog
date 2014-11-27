@@ -1,7 +1,5 @@
-{% extends "test_base.html" %}
+{% extends "base.html" %}
 {% block main %}
-{% include "_mnnav.html" %}
-
 <h1>添加新文章</h1>
 <form action="" method="post">
 {{ form.csrf }}
@@ -11,5 +9,4 @@
 <dt> {{ form.content(style="width:100%; height:300px;") }}
 <dt> {{ form.submit }}
 </form>
-<p></p>
 {% endblock %}

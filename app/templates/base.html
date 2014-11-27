@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="Tesla">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <title>My Blog - {% block title %}{% endblock %}</title>
+    {% block head %}{% endblock %}
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <h1 class="logo">My Flask Blog</h1>
+      </div>
+    </header>
+
+    {% block main %}
+    {% for message in get_flashed_messages() %}
+      <div class=flash>{{ message }}</div>
+    {% endfor %}
+    {% endblock %}
+
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+
+    <div id="footer">
+      {% block footer %}
+      &copy; Copyright 2014 by <a href="http://xxx/">Github</a> by LGL.
+      {% endblock %}
+    </div>
+  </body>
+
+</html>

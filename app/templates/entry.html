@@ -1,8 +1,9 @@
-{% extends "test_base.html" %}
+{% extends "base.html" %}
 
 {% block main %}
 <div id="content">
 <div id="article">
+
 <dl>
 <dt><a href="/admin/post/{{ page.id}}/entry">{{ page.title }}</a></dt>
 <dd>{{ page.content|safe }}</dd>
