@@ -7,7 +7,8 @@ from . import bp
 from app.models import Post, Comment
 from app.extensions import db
 from app.forms import PostForm, CommentsForm
-from app.service import PostService
+from app.service.post import PostService
+from app.service.comment import CommentService
 
 @bp.route('/')
 @bp.route('/page/<int:page>')
@@ -29,17 +30,13 @@ def entry(id):
 
     if request.method == "GET":
         return render_template('entry.html', page=page, cs=cs, form=form)
+
     name = form.name.data
     email = form.email.data
     comments = form.comments.data
 
-    c = Comment(
-                 post_id = id,
-                 name=name,
-                 email=email,
-                 comments=comments)
     try:
-        c.store_to_db()
+        comment = CommentService.add_comment(id, name, email, comments)
         flash('Comments added successfully!')
     except:
         flash('Failed to add a comment')

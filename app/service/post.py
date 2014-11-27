@@ -13,7 +13,6 @@ class PostService(object):
 
         return post.to_dict()
 
-
     @staticmethod
     def store_to_db():
         db.session.add()

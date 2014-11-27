@@ -68,10 +68,6 @@ class Post(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    # def __init__(self, title, content):
-    #     self.title = title
-    #     self.content = content
-
     def to_dict(self):
         return dict(
             id=self.id,
@@ -101,16 +97,6 @@ class Comment(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
 
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
-
-    def store_to_db(self):
-
-        db.session.add(self)
-        db.session.commit()
-
-    # def __init__(self, name, email, comments):
-    #     self.name = name
-    #     self.email = email
-    #     self.comments = comments
 
     def to_dict(self):
         return dict(
