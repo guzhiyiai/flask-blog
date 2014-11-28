@@ -20,9 +20,7 @@ class PostService(object):
     @staticmethod
     def edit_entry(id, title, content):
         print "xxxnnnnn"
-        post = Post.query.filter_by(id=id)
-        post.title = title
-        post.content = content
+        post = Post.query.filter_by(id=id).update({"title": title, "content": content})
         db.session.commit()
         return post.to_dict()
 
