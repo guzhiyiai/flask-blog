@@ -10,7 +10,6 @@ class PostService(object):
         post = Post(content=content, title=title)
         db.session.add(post)
         db.session.commit()
-
         return post.to_dict()
 
     @staticmethod

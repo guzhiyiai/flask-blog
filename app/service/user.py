@@ -3,6 +3,7 @@
 from app.models import User
 from app.extensions import db
 
+
 class UserService(object):
     @staticmethod
     def add_user(username, password, email):

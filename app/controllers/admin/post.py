@@ -70,11 +70,12 @@ def del_entry(id):
         flash(u'文章删除成功')
     except:
         flash(u'文章删除失败，请与管理员联系')
-    page=1
+    page = 1
     page_obj = Post.query.order_by("-id").paginate(page=page, per_page=5)
     page_url = lambda page: url_for(".index", page=page)
 
-    return render_template('del_entry.html', page_obj=page_obj, page_url=page_url)
+    return render_template('del_entry.html',
+                           page_obj=page_obj, page_url=page_url)
 
 
 @bp.route('/<int:id>/edit', methods=['GET', 'POST'])
@@ -94,4 +95,3 @@ def edit_entry(id):
         flash(u'文章删除失败，请与管理员联系')
 
     return render_template('admin_index.html')
-

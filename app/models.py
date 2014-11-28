@@ -26,9 +26,6 @@ class User(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
     posts = db.relationship('Post')
 
-    # def is_active(self):
-    #     return True
-
     def __init__(self, username, password, email):
         self.username = username
         self.email = email
