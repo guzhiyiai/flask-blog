@@ -10,6 +10,7 @@ from app.service.comment import CommentService
 
 from . import bp
 
+
 @bp.route('/')
 @bp.route('/page/<int:page>')
 def index(page=1):
@@ -25,7 +26,6 @@ def index(page=1):
 def entry(id):
     form = CommentsForm(request.form)
     page = Post.query.filter_by(id=id).first()
-    # cs = Comment.query.all()
     cs = Comment.query.filter_by(post_id=id)
 
     if request.method == "GET":
@@ -70,8 +70,8 @@ def del_entry(id):
         flash(u'文章删除成功')
     except:
         flash(u'文章删除失败，请与管理员联系')
-
-    page_obj = Post.query.order_by("-id").paginate(2, per_page=5)
+    page=1
+    page_obj = Post.query.order_by("-id").paginate(page=page, per_page=5)
     page_url = lambda page: url_for(".index", page=page)
 
     return render_template('del_entry.html', page_obj=page_obj, page_url=page_url)
