@@ -41,15 +41,11 @@ def signin():
     if 'email' in session:
         return render_template('admin_index.html', form=form)
 
-    if request.method == 'POST':
-        if not form.validate():
-            return render_template('signin.html', form=form)
-        else:
-            session['email'] = form.email.data
-        return render_template('admin_index.html', form=form)
-
-    elif request.method == 'GET':
+    if request.method == 'GET':
         return render_template('signin.html', form=form)
+
+    session['email'] = form.email.data
+    return render_template('admin_index.html', form=form)
 
 
 @bp.route('/signout')
