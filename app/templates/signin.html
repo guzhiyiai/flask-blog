@@ -12,7 +12,7 @@
   {% endfor %}
 
   <form action="{{ url_for('.signin') }}" method=post>
-    {{ form.hidden_tag() }}
+
 
     {{ form.email.label }}
     {{ form.email }}
