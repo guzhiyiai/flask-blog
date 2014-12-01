@@ -5,6 +5,13 @@ from app.extensions import db
 
 
 class PostService(object):
+
+
+    # @staticmethod
+    # def get_posts(post):
+    #     db.session.delete(post)
+    #     db.session.commit()
+
     @staticmethod
     def add_post(title, content=None):
         post = Post(content=content, title=title)
@@ -13,7 +20,7 @@ class PostService(object):
         return post.to_dict()
 
     @staticmethod
-    def del_post(post):
+    def delete_post(post):
         db.session.delete(post)
         db.session.commit()
 
@@ -23,7 +30,3 @@ class PostService(object):
         db.session.commit()
         return post.to_dict()
 
-    @staticmethod
-    def store_to_db():
-        db.session.add()
-        db.session.commit()

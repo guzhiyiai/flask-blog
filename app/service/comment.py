@@ -14,3 +14,9 @@ class CommentService(object):
         db.session.commit()
 
         return comment.to_dict()
+
+    @staticmethod
+    def get_comments(id):
+        comment_list = Comment.query.filter_by(post_id=id).all()
+
+        return comment_list

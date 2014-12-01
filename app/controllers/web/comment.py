@@ -15,7 +15,7 @@ from . import bp
 def post(id):
     form = CommentsForm(request.form)
     page = Post.query.filter_by(id=id).first()
-    cs = Comment.query.filter_by(post_id=id).all()
+    cs = CommentService.get_comments(id)
 
     if request.method == "GET":
         return render_template('comment.html', page=page, cs=cs, form=form)

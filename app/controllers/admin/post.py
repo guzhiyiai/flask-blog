@@ -57,10 +57,10 @@ def add_post():
 
 
 @bp.route('/post/<int:id>/del', methods=['GET', 'POST'])
-def del_post(id):
+def delete_post(id):
     post = Post.query.filter_by(id=id).first()
     try:
-        post = PostService.del_post(post)
+        post = PostService.delete_post(post)
         flash(u'文章删除成功')
     except:
         flash(u'文章删除失败，请与管理员联系')
