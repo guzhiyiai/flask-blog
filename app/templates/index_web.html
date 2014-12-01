@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% from "_pagination.html" import paginate %}
 
 
 {% block main %}
@@ -8,7 +7,7 @@
 <div id="article">
 {% if page_obj %}
 <dl>
-{% for page in page_obj.items %}
+{% for page in page_obj %}
 
       <div class="blog-post">
         <h2 class="blog-post-title"><a href="/web/post/{{ page.id }}">{{ page.title|safe }}</a></h2>
@@ -21,8 +20,6 @@
 {% endif %}
 </div> <!-- end article -->
 
-
-{{ paginate(page_obj, page_url) }}
 </div> <!-- end content -->
 
 <div id="sidebar">

@@ -13,10 +13,8 @@ from . import bp
 
 @bp.route('/')
 @bp.route('/page/<int:page>')
-def admin_index(page=1):
-    if page < 1:
-        page = 1
-    page_obj = Post.query.order_by("-id").paginate(page, per_page=5)
+def admin_index():
+    page_obj = PostService.get_posts()
     page_url = lambda page: url_for(".index", page=page)
 
     return render_template('index.html', page_obj=page_obj, page_url=page_url)
@@ -25,7 +23,7 @@ def admin_index(page=1):
 @bp.route('/post/<int:id>', methods=['GET', 'POST'])
 def post(id):
     form = CommentsForm(request.form)
-    page = Post.query.filter_by(id=id).first()
+    page = PostService.get_one_post(id)
     cs = None
 
     if request.method == "GET":
@@ -58,7 +56,7 @@ def add_post():
 
 @bp.route('/post/<int:id>/del', methods=['GET', 'POST'])
 def delete_post(id):
-    post = Post.query.filter_by(id=id).first()
+    post = PostService.get_one_post(id)
     try:
         post = PostService.delete_post(post)
         flash(u'文章删除成功')
@@ -66,17 +64,11 @@ def delete_post(id):
         flash(u'文章删除失败，请与管理员联系')
 
     return render_template('admin_index.html')
-    # page = 1
-    # page_obj = Post.query.order_by("-id").paginate(page=page, per_page=5)
-    # page_url = lambda page: url_for(".index", page=page)
-
-    # return render_template('del_post.html',
-    #                        page_obj=page_obj, page_url=page_url)
 
 
 @bp.route('/post/<int:id>/update', methods=['GET', 'POST'])
 def update_post(id):
-    post = Post.query.filter_by(id=id).first()
+    post = PostService.get_one_post(id)
     form = PostForm(title=post.title, content=post.content)
     if request.method == "GET":
         return render_template('update_post.html', form=form)

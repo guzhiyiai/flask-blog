@@ -14,7 +14,7 @@ from . import bp
 @bp.route('/post/<int:id>', methods=['GET', 'POST'])
 def post(id):
     form = CommentsForm(request.form)
-    page = Post.query.filter_by(id=id).first()
+    page = PostService.get_one_post(id)
     cs = CommentService.get_comments(id)
 
     if request.method == "GET":
@@ -31,8 +31,7 @@ def post(id):
     except:
         flash('Failed to add a comment!')
 
-    page = 1
-    page_obj = Post.query.order_by("id").paginate(page, per_page=5)
+    page_obj = PostService.get_posts()
     page_url = lambda page: url_for(".index", page=page)
 
     return render_template('index_web.html', page_obj=page_obj, page_url=page_url)

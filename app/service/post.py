@@ -6,11 +6,15 @@ from app.extensions import db
 
 class PostService(object):
 
+    @staticmethod
+    def get_posts():
+        posts = Post.query.order_by("id").all()
+        return posts
 
-    # @staticmethod
-    # def get_posts(post):
-    #     db.session.delete(post)
-    #     db.session.commit()
+    @staticmethod
+    def get_one_post(id):
+        post = Post.query.filter_by(id=id).first()
+        return post
 
     @staticmethod
     def add_post(title, content=None):
