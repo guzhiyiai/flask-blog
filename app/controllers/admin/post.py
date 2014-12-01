@@ -90,8 +90,8 @@ def edit_entry(id):
 
     try:
         post = PostService.edit_entry(id, title, content)
-        flash(u'文章删除成功')
+        flash(u'文章编辑成功')
     except:
-        flash(u'文章删除失败，请与管理员联系')
+        flash(u'文章编辑失败，请与管理员联系')
 
     return render_template('admin_index.html')
