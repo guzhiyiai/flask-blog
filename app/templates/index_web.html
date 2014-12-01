@@ -11,7 +11,7 @@
 {% for page in page_obj.items %}
 
       <div class="blog-post">
-        <h2 class="blog-post-title"><a href="/admin/post/{{ page.id }}">{{ page.title|safe }}</a></h2>
+        <h2 class="blog-post-title"><a href="/web/post/{{ page.id }}">{{ page.title|safe }}</a></h2>
         <p class="blog-post-meta">{{ page.content|safe }}</p>
       </div><!-- /.blog-post -->
 {% endfor %}

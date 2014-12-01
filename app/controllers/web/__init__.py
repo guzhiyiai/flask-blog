@@ -7,3 +7,4 @@ bp = Blueprint('web', __name__)
 
 
 from . import post
+from . import comment

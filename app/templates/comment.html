@@ -1,0 +1,39 @@
+
+{% extends "base.html" %}
+
+{% block main %}
+<div id="content">
+<div id="article">
+
+</div> <!-- end article -->
+
+<div id="comments">
+
+<h3>Comments</h3>
+    {% if not cs %}
+        <b>暂无评论</b>
+    {% else %}
+        {%for comment in cs %}
+            <dd>{{ comment.name }} add comments:</dd>
+            <dd>{{ comment.comments }}</dd>
+        {% endfor %}
+    {% endif %}
+
+
+<h3>Add Comments</h3>
+<a name="comments"></a>
+{% include "_comment.html" %}
+
+</div>
+</div> <!-- end content -->
+
+<div id="sidebar">
+
+<div id="list">
+
+
+
+</div> <!-- end list -->
+
+</div> <!-- end sidebar -->
+{% endblock %}

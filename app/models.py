@@ -24,7 +24,7 @@ class User(db.Model):
     role = db.Column(db.Integer, index=True, default=UserRole.USER, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
-    posts = db.relationship('Post')
+    # posts = db.relationship('Post')
 
     def to_dict(self):
         return dict(
@@ -50,9 +50,9 @@ class Post(db.Model):
     status = db.Column(db.Integer, default=PostStatus.PENDING, index=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
-    comments = db.relationship('Comment')
+    # comments = db.relationship('Comment')
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer)
 
     def to_dict(self):
         return dict(
@@ -82,7 +82,7 @@ class Comment(db.Model):
     comments = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.now)
 
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+    post_id = db.Column(db.Integer)
 
     def to_dict(self):
         return dict(

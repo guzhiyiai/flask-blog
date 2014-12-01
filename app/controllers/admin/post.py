@@ -26,7 +26,7 @@ def admin_index(page=1):
 def post(id):
     form = CommentsForm(request.form)
     page = Post.query.filter_by(id=id).first()
-    cs = Comment.query.filter_by(post_id=id)
+    cs = None
 
     if request.method == "GET":
         return render_template('post.html', page=page, cs=cs, form=form)
@@ -34,12 +34,6 @@ def post(id):
     name = form.name.data
     email = form.email.data
     comments = form.comments.data
-
-    try:
-        comment = CommentService.add_comment(id, name, email, comments)
-        flash('Comments added successfully!')
-    except:
-        flash('Failed to add a comment')
 
     return render_template('post.html', page=page, cs=cs, form=form)
 
@@ -70,12 +64,14 @@ def del_post(id):
         flash(u'文章删除成功')
     except:
         flash(u'文章删除失败，请与管理员联系')
-    page = 1
-    page_obj = Post.query.order_by("-id").paginate(page=page, per_page=5)
-    page_url = lambda page: url_for(".index", page=page)
 
-    return render_template('del_post.html',
-                           page_obj=page_obj, page_url=page_url)
+    return render_template('admin_index.html')
+    # page = 1
+    # page_obj = Post.query.order_by("-id").paginate(page=page, per_page=5)
+    # page_url = lambda page: url_for(".index", page=page)
+
+    # return render_template('del_post.html',
+    #                        page_obj=page_obj, page_url=page_url)
 
 
 @bp.route('/post/<int:id>/update', methods=['GET', 'POST'])
