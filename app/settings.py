@@ -6,13 +6,9 @@ class DefaultConfig(object):
     DEBUG = True
     TESTING = True
 
-    USERNAME = 'admin'
-    PASSWORD = 'admin'
-
     CSRF_ENABLED = True
-    SECRET_KEY = 'good-for-you'
+    SECRET_KEY = "d\xff\xb3fP\x0e\xd0\xd2,'\xee\xd6\xc2\xca\x93ep\xfa\x12\xa0\x86\x08\x1e\xe8"
 
     # datebase
-    SQLALCHEMY_DATABASE_URI = "mysql://%s:%s@%s/%s" % (
-        'root', 'abc123', 'localhost', 'test3')
+    SQLALCHEMY_DATABASE_URI = "mysql://root:abc123@localhost/test3"
     SQLALCHEMY_ECHO = True
