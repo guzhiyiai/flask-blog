@@ -3,7 +3,7 @@
 {% block main %}
 <h1>后台管理</h1>
     {% if 'email' in session %}
-    <li><a href="{{ url_for('.index') }}">文章管理</a></li>
+    <li><a href="{{ url_for('.admin_index') }}">文章管理</a></li>
     <li><a href="{{ url_for('.add_post') }}">添加文章</a><li>
     <li><a href="{{ url_for('admin.signout') }}">退出</a></li>
     {% else %}

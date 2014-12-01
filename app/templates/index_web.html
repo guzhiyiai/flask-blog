@@ -14,12 +14,6 @@
         <h2 class="blog-post-title"><a href="/admin/post/{{ page.id }}">{{ page.title|safe }}</a></h2>
         <p class="blog-post-meta">{{ page.content|safe }}</p>
       </div><!-- /.blog-post -->
-
-    {% if 'email' in session %}
-    [<a href="/admin/post/{{ page.id }}/update">编辑</a>]
-    [<a href="/admin/post/{{ page.id }}/del">删除</a>]
-    <p> </p>
-    {% endif %}
 {% endfor %}
 </dl> <!-- 文章列表尾 -->
 {% else %}

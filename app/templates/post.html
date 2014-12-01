@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block main %}
@@ -5,7 +6,7 @@
 <div id="article">
 
 <dl>
-<dt><a href="/admin/post/{{ page.id}}/entry">{{ page.title }}</a></dt>
+<dt><a href="/admin/post/{{ page.id}}/post">{{ page.title }}</a></dt>
 <dd>{{ page.content|safe }}</dd>
 
 </dl>

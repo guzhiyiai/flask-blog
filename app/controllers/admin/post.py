@@ -13,7 +13,7 @@ from . import bp
 
 @bp.route('/')
 @bp.route('/page/<int:page>')
-def index(page=1):
+def admin_index(page=1):
     if page < 1:
         page = 1
     page_obj = Post.query.order_by("-id").paginate(page, per_page=5)
@@ -22,14 +22,14 @@ def index(page=1):
     return render_template('index.html', page_obj=page_obj, page_url=page_url)
 
 
-@bp.route('/post/<int:id>/entry', methods=['GET', 'POST'])
-def entry(id):
+@bp.route('/post/<int:id>', methods=['GET', 'POST'])
+def post(id):
     form = CommentsForm(request.form)
     page = Post.query.filter_by(id=id).first()
     cs = Comment.query.filter_by(post_id=id)
 
     if request.method == "GET":
-        return render_template('entry.html', page=page, cs=cs, form=form)
+        return render_template('post.html', page=page, cs=cs, form=form)
 
     name = form.name.data
     email = form.email.data
@@ -41,10 +41,10 @@ def entry(id):
     except:
         flash('Failed to add a comment')
 
-    return render_template('entry.html', page=page, cs=cs, form=form)
+    return render_template('post.html', page=page, cs=cs, form=form)
 
 
-@bp.route('/add', methods=['GET', 'POST'])
+@bp.route('/post/add', methods=['GET', 'POST'])
 def add_post():
     form = PostForm(request.form)
     if request.method == "GET":
@@ -62,11 +62,11 @@ def add_post():
     return render_template('admin_index.html')
 
 
-@bp.route('/<int:id>/del', methods=['GET', 'POST'])
+@bp.route('/post/<int:id>/del', methods=['GET', 'POST'])
 def del_post(id):
-    entry = Post.query.filter_by(id=id).first()
+    post = Post.query.filter_by(id=id).first()
     try:
-        post = PostService.del_post(entry)
+        post = PostService.del_post(post)
         flash(u'文章删除成功')
     except:
         flash(u'文章删除失败，请与管理员联系')
@@ -78,10 +78,10 @@ def del_post(id):
                            page_obj=page_obj, page_url=page_url)
 
 
-@bp.route('/<int:id>/edit', methods=['GET', 'POST'])
+@bp.route('/post/<int:id>/update', methods=['GET', 'POST'])
 def update_post(id):
-    entry = Post.query.filter_by(id=id).first()
-    form = PostForm(title=entry.title, content=entry.content)
+    post = Post.query.filter_by(id=id).first()
+    form = PostForm(title=post.title, content=post.content)
     if request.method == "GET":
         return render_template('update_post.html', form=form)
 

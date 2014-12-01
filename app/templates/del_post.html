@@ -9,9 +9,9 @@
     {% for page in page_obj.items %}
     <ul>
         <li style="font-size:0.8em;">
-        <a href="/post/{{ page.id }}/entry">{{ page.title }}</a>
+        <a href="/post/{{ page.id }}/post">{{ page.title }}</a>
         <span style="float:right">
-        [<a href="/admin/{{ page.id }}/edit">编辑</a>]
+        [<a href="/admin/{{ page.id }}/update">编辑</a>]
         [<a href="/admin/{{ page.id }}/del">删除</a>]
         </span>
         </li>

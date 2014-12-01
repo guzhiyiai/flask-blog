@@ -13,12 +13,12 @@ class PostService(object):
         return post.to_dict()
 
     @staticmethod
-    def del_post(entry):
-        db.session.delete(entry)
+    def del_post(post):
+        db.session.delete(post)
         db.session.commit()
 
     @staticmethod
-    def update_entry(id, title, content):
+    def update_post(id, title, content):
         post = Post.query.filter_by(id=id).update({"title": title, "content": content})
         db.session.commit()
         return post.to_dict()
