@@ -26,17 +26,6 @@ class User(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
     posts = db.relationship('Post')
 
-    def __init__(self, username, password, email):
-        self.username = username
-        self.email = email
-        self.set_password(password)
-
-    def set_password(self, password):
-        self.password = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password, password)
-
     def to_dict(self):
         return dict(
             id=self.id,
