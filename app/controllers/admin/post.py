@@ -45,16 +45,16 @@ def entry(id):
 
 
 @bp.route('/add', methods=['GET', 'POST'])
-def add_entry():
+def add_post():
     form = PostForm(request.form)
     if request.method == "GET":
-        return render_template('add_entry.html', form=form)
+        return render_template('add_post.html', form=form)
 
     title = form.title.data
     content = form.content.data
 
     try:
-        post = PostService.add_entry(title, content)
+        post = PostService.add_post(title, content)
         flash(u'文章存入成功')
     except:
         flash(u'文章存入失败，请与管理员联系')
@@ -63,10 +63,10 @@ def add_entry():
 
 
 @bp.route('/<int:id>/del', methods=['GET', 'POST'])
-def del_entry(id):
+def del_post(id):
     entry = Post.query.filter_by(id=id).first()
     try:
-        post = PostService.del_entry(entry)
+        post = PostService.del_post(entry)
         flash(u'文章删除成功')
     except:
         flash(u'文章删除失败，请与管理员联系')
@@ -74,22 +74,22 @@ def del_entry(id):
     page_obj = Post.query.order_by("-id").paginate(page=page, per_page=5)
     page_url = lambda page: url_for(".index", page=page)
 
-    return render_template('del_entry.html',
+    return render_template('del_post.html',
                            page_obj=page_obj, page_url=page_url)
 
 
 @bp.route('/<int:id>/edit', methods=['GET', 'POST'])
-def edit_entry(id):
+def update_post(id):
     entry = Post.query.filter_by(id=id).first()
     form = PostForm(title=entry.title, content=entry.content)
     if request.method == "GET":
-        return render_template('edit_entry.html', form=form)
+        return render_template('update_post.html', form=form)
 
     title = request.form['title']
     content = request.form['content']
 
     try:
-        post = PostService.edit_entry(id, title, content)
+        post = PostService.update_post(id, title, content)
         flash(u'文章编辑成功')
     except:
         flash(u'文章编辑失败，请与管理员联系')

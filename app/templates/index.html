@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-
-{% from "_helpers.html" import paginate %}
+{% from "_pagination.html" import paginate %}
 
 
 {% block main %}
@@ -11,20 +10,16 @@
 <dl>
 {% for page in page_obj.items %}
 
+      <div class="blog-post">
+        <h2 class="blog-post-title"><a href="/admin/post/{{ page.id }}/entry">{{ page.title|safe }}</a></h2>
+        <p class="blog-post-meta">{{ page.content|safe }}</p>
+      </div><!-- /.blog-post -->
 
-          <div class="blog-post">
-            <h2 class="blog-post-title"><a href="/admin/post/{{ page.id }}/entry">{{ page.title|safe }}</a></h2>
-            <p class="blog-post-meta">{{ page.content|safe }}</p>
-          </div><!-- /.blog-post -->
-
-
-    <dd></dd>
-        {% if 'email' in session %}
-            <span style="float:right">
-            [<a href="/admin/{{ page.id }}/edit">编辑</a>]
-            [<a href="/admin/{{ page.id }}/del">删除</a>]
-            </span>
-        {% endif %}
+    {% if 'email' in session %}
+    [<a href="/admin/{{ page.id }}/edit">编辑</a>]
+    [<a href="/admin/{{ page.id }}/del">删除</a>]
+    <p> </p>
+    {% endif %}
 {% endfor %}
 </dl> <!-- 文章列表尾 -->
 {% else %}
@@ -37,12 +32,7 @@
 </div> <!-- end content -->
 
 <div id="sidebar">
-
-<div id="list">
-
-
-
-</div> <!-- end list -->
-
+    <div id="list">
+    </div> <!-- end list -->
 </div> <!-- end sidebar -->
 {% endblock %}

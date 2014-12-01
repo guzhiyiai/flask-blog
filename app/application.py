@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask
-from flask_bootstrap import Bootstrap
 
 from app.settings import DefaultConfig
 from app.controllers.admin import bp as admin_web_bp
@@ -13,8 +12,6 @@ DEFAULT_APP_NAME = 'app'
 
 def create_app(config=None):
     app = Flask(DEFAULT_APP_NAME)
-
-    Bootstrap(app)
 
     configure_app(app, config)
     configure_extensions(app)

@@ -6,19 +6,19 @@ from app.extensions import db
 
 class PostService(object):
     @staticmethod
-    def add_entry(title, content=None):
+    def add_post(title, content=None):
         post = Post(content=content, title=title)
         db.session.add(post)
         db.session.commit()
         return post.to_dict()
 
     @staticmethod
-    def del_entry(entry):
+    def del_post(entry):
         db.session.delete(entry)
         db.session.commit()
 
     @staticmethod
-    def edit_entry(id, title, content):
+    def update_entry(id, title, content):
         post = Post.query.filter_by(id=id).update({"title": title, "content": content})
         db.session.commit()
         return post.to_dict()

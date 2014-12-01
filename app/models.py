@@ -48,7 +48,7 @@ class User(db.Model):
 class PostStatus:
 
     SHOWN = 0
-    HIDDEN = 1
+    PENDING = 1
     DELETED = 2
 
 
@@ -58,7 +58,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), nullable=False)
     content = db.Column(db.Text)
-    status = db.Column(db.Integer, default=PostStatus.HIDDEN, index=True)
+    status = db.Column(db.Integer, default=PostStatus.PENDING, index=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
     comments = db.relationship('Comment')
