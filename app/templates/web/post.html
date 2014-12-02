@@ -1,0 +1,48 @@
+{% extends "web/base.html" %}
+
+
+{% block main %}
+<div id="content">
+<div id="article">
+{% if post %}
+    <dl>
+        <div class="blog-post">
+        <h2 class="blog-post-title"><a href="/web/post/{{ post.id }}">{{ post.title|safe }}</a></h2>
+        <p class="blog-post-meta">{{ post.content|safe }}</p>
+        </div>
+    </dl>
+{% else %}
+    <b>文章不存在。</b>
+{% endif %}
+</div> <!-- end article -->
+
+<div id="comments">
+<h3>Comments</h3>
+    {% if not cs %}
+        <b>暂无评论</b>
+    {% else %}
+        {%for comment in cs %}
+            <dd>{{ comment.name }} add comments:</dd>
+            <dd>{{ comment.comments }}</dd>
+        {% endfor %}
+    {% endif %}
+
+<h3>Add Comments</h3>
+<a name="comments"></a>
+<form action="" method="post">
+<dt> {{ form.name.label }}
+<dt> {{ form.name(style="width: 50%") }}
+<dt> {{ form.email.label }}
+<dt> {{ form.email(style="width: 50%") }}
+<dt> {{ form.comments(style="margin: 5px 5px 5px 0;width: 98%; height: 200px;") }}
+<dt> {{ form.submit }}
+</form>
+</div><!-- end comments-->
+</div> <!-- end content -->
+
+
+<div id="sidebar">
+    <div id="list">
+    </div> <!-- end list -->
+</div> <!-- end sidebar -->
+{% endblock %}
