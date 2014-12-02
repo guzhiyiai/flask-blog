@@ -16,7 +16,7 @@ def signup():
     form = SignupForm()
 
     if 'email' in session:
-        return render_template('admin_index.html', form=form)
+        return render_template('admin/index.html', form=form)
 
     if request.method == 'POST':
         if not form.validate():
@@ -28,10 +28,10 @@ def signup():
             user = UserService.add_user(username, password, email)
             session['email'] = user.email
 
-            return render_template('admin_index.html', form=form)
+            return render_template('admin/signin.html', form=form)
 
     elif request.method == 'GET':
-        return render_template('signup.html', form=form)
+        return render_template('admin/signup.html', form=form)
 
 
 @bp.route('/signin', methods=['GET', 'POST'])
@@ -39,13 +39,13 @@ def signin():
     form = SigninForm()
 
     if 'email' in session:
-        return render_template('admin_index.html', form=form)
+        return render_template('admin/index.html', form=form)
 
     if request.method == 'GET':
-        return render_template('signin.html', form=form)
+        return render_template('admin/signin.html', form=form)
 
     session['email'] = form.email.data
-    return render_template('admin_index.html', form=form)
+    return render_template('admin/index.html', form=form)
 
 
 @bp.route('/signout')

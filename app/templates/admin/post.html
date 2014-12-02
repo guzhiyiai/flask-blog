@@ -1,15 +1,13 @@
 
-{% extends "base.html" %}
+{% extends "admin/base.html" %}
 
 {% block main %}
 <div id="content">
 <div id="article">
-
 <dl>
-<dt><a href="/admin/post/{{ page.id}}/post">{{ page.title }}</a></dt>
-<dd>{{ page.content|safe }}</dd>
+<dt><a href="/admin/post/{{ post.id}}/post">{{ post.title }}</a></dt>
+<dd>{{ post.content|safe }}</dd>
 </dl>
-
 </div> <!-- end article -->
 
 <div id="comments">
@@ -23,11 +21,6 @@
             <dd>{{ comment.comments }}</dd>
         {% endfor %}
     {% endif %}
-
-
-<h3>Add Comments</h3>
-<a name="comments"></a>
-{% include "_comment.html" %}
 
 </div>
 </div> <!-- end content -->

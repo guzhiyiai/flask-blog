@@ -13,34 +13,30 @@ from . import bp
 
 @bp.route('/')
 @bp.route('/page/<int:page>')
-def admin_index():
-    page_obj = PostService.get_posts()
-    page_url = lambda page: url_for(".index", page=page)
-
-    return render_template('index.html', page_obj=page_obj, page_url=page_url)
+def index():
+    return render_template('admin/index.html')
 
 
-@bp.route('/post/<int:id>', methods=['GET', 'POST'])
+@bp.route('/posts')
+def show_posts():
+    posts = PostService.get_posts()
+
+    return render_template('admin/show_posts.html', posts=posts)
+
+
+@bp.route('/post/<int:id>')
 def post(id):
-    form = CommentsForm(request.form)
-    page = PostService.get_one_post(id)
-    cs = None
+    post = PostService.get_one_post(id)
+    cs = CommentService.get_comments(id)
 
-    if request.method == "GET":
-        return render_template('post.html', page=page, cs=cs, form=form)
-
-    name = form.name.data
-    email = form.email.data
-    comments = form.comments.data
-
-    return render_template('post.html', page=page, cs=cs, form=form)
+    return render_template('admin/post.html', post=post, cs=cs)
 
 
 @bp.route('/post/add', methods=['GET', 'POST'])
 def add_post():
     form = PostForm(request.form)
     if request.method == "GET":
-        return render_template('add_post.html', form=form)
+        return render_template('admin/add_post.html', form=form)
 
     title = form.title.data
     content = form.content.data
@@ -51,10 +47,10 @@ def add_post():
     except:
         flash(u'文章存入失败，请与管理员联系')
 
-    return render_template('admin_index.html')
+    return render_template('admin/index.html')
 
 
-@bp.route('/post/<int:id>/del', methods=['GET', 'POST'])
+@bp.route('/post/<int:id>/del')
 def delete_post(id):
     post = PostService.get_one_post(id)
     try:
@@ -63,7 +59,7 @@ def delete_post(id):
     except:
         flash(u'文章删除失败，请与管理员联系')
 
-    return render_template('admin_index.html')
+    return render_template('admin/show_posts.html')
 
 
 @bp.route('/post/<int:id>/update', methods=['GET', 'POST'])
@@ -71,7 +67,7 @@ def update_post(id):
     post = PostService.get_one_post(id)
     form = PostForm(title=post.title, content=post.content)
     if request.method == "GET":
-        return render_template('update_post.html', form=form)
+        return render_template('admin/update_post.html', form=form)
 
     title = request.form['title']
     content = request.form['content']
@@ -82,4 +78,4 @@ def update_post(id):
     except:
         flash(u'文章编辑失败，请与管理员联系')
 
-    return render_template('admin_index.html')
+    return render_template('admin/show_posts.html')

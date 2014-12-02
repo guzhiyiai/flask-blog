@@ -35,4 +35,4 @@ def configure_extensions(app):
 
 def configure_blueprints(app):
     app.register_blueprint(admin_web_bp, url_prefix='/admin')
-    app.register_blueprint(web_bp, url_prefix='/web')
+    app.register_blueprint(web_bp, url_prefix='')
