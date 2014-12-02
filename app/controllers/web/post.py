@@ -35,7 +35,11 @@ def post(id):
     comments = form.comments.data
 
     try:
-        comment = CommentService.add_comment(post_id=post_id, name=name, email=email, comments=comments)
+        comment = CommentService.add_comment(
+            post_id=post_id,
+            name=name,
+            email=email,
+            comments=comments)
         flash('Add a comment successful!')
     except:
         flash('Failed to add a comment!')

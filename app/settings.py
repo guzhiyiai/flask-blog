@@ -7,7 +7,7 @@ class DefaultConfig(object):
     TESTING = True
 
     CSRF_ENABLED = True
-    SECRET_KEY = "d\xff\xb3fP\x0e\xd0\xd2,'\xee\xd6\xc2\xca\x93ep\xfa\x12\xa0\x86\x08\x1e\xe8"
+    SECRET_KEY = "gSf3Xd8y]w8vd0z"
 
     # datebase
     SQLALCHEMY_DATABASE_URI = "mysql://root:abc123@localhost/my-blog"

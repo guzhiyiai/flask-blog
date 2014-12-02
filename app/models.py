@@ -21,7 +21,8 @@ class User(db.Model):
     username = db.Column(db.String(50))
     password = db.Column(db.String(300))
     email = db.Column(db.String(100), unique=True)
-    role = db.Column(db.Integer, index=True, default=UserRole.USER, nullable=False)
+    role = db.Column(db.Integer, index=True,
+                     default=UserRole.USER, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
     # posts = db.relationship('Post')
@@ -78,7 +79,8 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), unique=True)
-    status = db.Column(db.Integer, index=True, default=CommentStatus.MODERATED, nullable=False)
+    status = db.Column(db.Integer, index=True,
+                       default=CommentStatus.MODERATED, nullable=False)
     comments = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.now)
 
