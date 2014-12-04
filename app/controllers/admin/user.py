@@ -5,6 +5,7 @@ from flask import flash, redirect, render_template, request, url_for, session
 
 from . import bp
 
+from app.utils.auth import login_required
 from app.models import User
 from app.extensions import db
 from app.forms import SignupForm, SigninForm
@@ -49,6 +50,7 @@ def signin():
 
 
 @bp.route('/signout')
+@login_required
 def signout():
     if 'email' not in session:
         return redirect(url_for('.signin'))

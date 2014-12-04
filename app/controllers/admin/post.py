@@ -7,6 +7,7 @@ from app.extensions import db
 from app.forms import PostForm, CommentsForm
 from app.service.post import PostService
 from app.service.comment import CommentService
+from app.utils.auth import login_required
 
 from . import bp
 
@@ -33,6 +34,7 @@ def post(id):
 
 
 @bp.route('/post/add', methods=['GET', 'POST'])
+@login_required
 def add_post():
     form = PostForm(request.form)
     if request.method == "GET":
