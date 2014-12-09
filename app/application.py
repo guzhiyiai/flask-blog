@@ -5,6 +5,7 @@ from flask import Flask
 from app.settings import DefaultConfig
 from app.controllers.admin import bp as admin_web_bp
 from app.controllers.web import bp as web_bp
+from app.controllers.api import bp as api_bp
 from app.extensions import db
 
 
@@ -36,3 +37,4 @@ def configure_extensions(app):
 def configure_blueprints(app):
     app.register_blueprint(admin_web_bp, url_prefix='/admin')
     app.register_blueprint(web_bp, url_prefix='')
+    app.register_blueprint(api_bp, url_prefix='/api/v1')
