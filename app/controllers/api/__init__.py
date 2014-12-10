@@ -14,5 +14,4 @@ class APIError:
     NO_ACCESS = (403, 'forbidden')
     NOT_FOUND = (404, 'not_found')
 
-from . import comment
 from . import post
