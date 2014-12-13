@@ -23,7 +23,7 @@ def index():
 @bp.route('/post/<int:id>', methods=['GET', 'POST'])
 def post(id):
     form = CommentsForm(request.form)
-    post = PostService.get_one_post(id)
+    post = PostService.get_one(id)
     cs = CommentService.get_comments(id)
 
     if request.method == "GET":
