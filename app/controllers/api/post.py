@@ -66,7 +66,7 @@ def delete_post(post_id):
 
 
 @bp.route('/posts/<int:post_id>/comments_count', methods=['GET'])
-def get_comments_count(post_id):
+def comments_count(post_id):
     comments_count = CommentService.get_comments_count(post_id)
 
     return jsonify_with_data(APIError.OK, comments_count=comments_count)

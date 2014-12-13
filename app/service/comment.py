@@ -34,6 +34,16 @@ class CommentService(object):
 
     @staticmethod
     def get_comments_count(post_id):
+
+        comments_count = get_counter(POST_COMMENTS_COUNT, post_id=post_id)
+
+        if comments_count is not None:
+            comments_count = Comment.query.filter_by(post_id=post_id).count()
+        return comments_count
+
+
+    @staticmethod
+    def set_comments_count(post_id):
         comments_count = Comment.query.filter_by(post_id=post_id).count()
         set_counter(POST_COMMENTS_COUNT, post_id=post_id)
         return comments_count
@@ -42,6 +52,6 @@ class CommentService(object):
     def inc_comments_count(post_id):
         comments_count = get_counter(POST_COMMENTS_COUNT, post_id=post_id)
         if comments_count is None:
-            CommentService.get_comments_count(post_id)
+            CommentService.set_comments_count(post_id)
         else:
             inc_counter(POST_COMMENTS_COUNT, post_id=post_id)

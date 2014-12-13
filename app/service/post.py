@@ -3,6 +3,14 @@
 from app.models import Post
 from app.extensions import db
 
+from app.utils.cache import get_post_cache
+from app.utils.cache import set_post_cache
+
+
+POST_CACHE = {
+        'key': 'posts:{post_id}:post'
+    }
+
 
 class PostService(object):
 
@@ -12,9 +20,18 @@ class PostService(object):
         return [post.to_dict() for post in posts]
 
     @staticmethod
-    def get_one(id):
-        post = Post.query.filter_by(id=id).first()
-        return post and post.to_dict()
+    def get_one(post_id):
+        post = get_post_cache(POST_CACHE, post_id=post_id)
+
+        if post is None:
+            post = Post.query.filter_by(id=post_id).first()
+            set_post_cache(POST_CACHE, post_id=post_id,
+                           post_title=post.title, post_content=post.content)
+
+            return post and post.to_dict()
+        else:
+            return post
+
 
     @staticmethod
     def add_post(title, content=None):

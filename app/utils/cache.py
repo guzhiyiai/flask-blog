@@ -1,6 +1,8 @@
 #-*- coding:utf-8 -*-
 
 import redis
+import cPickle as pickle
+import json
 import time
 from flask import current_app
 
@@ -65,6 +67,34 @@ def format_key(key_pattern, **kw):
     key = raw.format(*keys)
     return key
 
+
+def format_post_key(key_pattern, **kw):
+    keys = key_pattern.split(":")
+    keys[1] = kw.get('post_id')
+    raw = "{0}:{1}:{2}"
+    key = raw.format(*keys)
+    return key
+
+
+def get_post_cache(cache_key, **kw):
+    key_pattern = cache_key.get('key')
+    key = format_post_key(key_pattern, **kw)
+
+    current_app.debug_logger.debug('Post Cache Get - %s', key)
+
+    return pickle.loads(mc.get(key))
+
+
+def set_post_cache(cache_key, **kw):
+    key_pattern = cache_key.get('key')
+    key = format_post_key(key_pattern, **kw)
+    dict_post = {"title": kw.get('post_title'), "content": kw.get('post_content')}
+
+    current_app.debug_logger.debug('Post Cache Set - %s', key)
+
+    return  mc.set(key,pickle.dumps(dict_post))
+
+
 def get_counter(cache_key, **kw):
 
     key_pattern = cache_key.get('key')
@@ -83,10 +113,7 @@ def inc_counter(cache_key, delta=1, **kw):
 def set_counter(cache_key, value=0, **kw):
     key_pattern = cache_key.get('key')
     key = format_key(key_pattern, **kw)
-
-
     current_app.debug_logger.debug('Cache set - %s', key)
-
 
     return mc.set(key, value)
 
