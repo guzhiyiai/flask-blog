@@ -3,6 +3,7 @@
 from flask import flash, redirect, render_template, request, url_for, session
 
 from app.service.post import PostService
+from app.service.comment import CommentService
 from app.utils.auth import login_required
 
 from app.utils.serialization import jsonify_with_data
@@ -62,3 +63,12 @@ def delete_post(post_id):
     PostService.delete_post(post_id)
 
     return jsonify_with_data(APIError.OK)
+
+
+@bp.route('/posts/<int:post_id>/comments_count', methods=['GET'])
+def get_comments_count(post_id):
+    comments_count = CommentService.get_comments_count(post_id)
+
+    return jsonify_with_data(APIError.OK, comments_count=comments_count)
+
+

@@ -71,19 +71,19 @@ def get_counter(cache_key, **kw):
     return mc.get(key)
 
 
-def inc_counter(cache_key_reg, delta=1, **kw):
+def inc_counter(cache_key, delta=1, **kw):
     key_pattern = cache_key.get('key')
     key = format_key(key_pattern, **kw)
 
     mc.inc(key, delta)
 
 
-def set_counter(cache_key_reg, value=0, **kw):
+def set_counter(cache_key, value=0, **kw):
     key_pattern = cache_key.get('key')
     key = format_key(key_pattern, **kw)
 
     return mc.set(key, value)
 
-# def dec_counter(cache_key_reg, delta=1, **kw):
+# def dec_counter(cache_key, delta=1, **kw):
 
 #     mc.dec(key, delta)

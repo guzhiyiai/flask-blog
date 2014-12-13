@@ -36,15 +36,12 @@ class CommentService(object):
     def get_comments_count(post_id):
         comments_count = Comment.query.filter_by(post_id=post_id).count()
         set_counter(POST_COMMENTS_COUNT, post_id=post_id)
-        current_app.debug_logger.debug('Counter cache set - %s', POST_COMMENTS_COUNT)
         return comments_count
 
     @staticmethod
     def inc_comments_count(post_id):
         comments_count = get_counter(POST_COMMENTS_COUNT, post_id=post_id)
-        imp
         if comments_count is None:
             CommentService.get_comments_count(post_id)
         else:
             inc_counter(POST_COMMENTS_COUNT, post_id=post_id)
-            current_app.debug_logger.debug('Counter cache Inc - %s', POST_COMMENTS_COUNT)
