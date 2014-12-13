@@ -1,4 +1,6 @@
 #-*- coding:utf-8 -*-
+import redis
+import time
 
 
 class RedisCache(object):
@@ -48,3 +50,40 @@ class RedisCache(object):
 
     def exists(self, key):
         return self._redis_cliend.exists(self.key_prefix + key)
+
+
+
+mc = RedisCache(key_prefix='blog_cache:')
+
+
+def format_key(key_pattern, **kw):
+    keys = key_pattern.split(":")
+    keys[1] = kw.get('post_id')
+    raw = "{0}:{1}:{2}"
+    key = raw.format(*keys)
+    return key
+
+def get_counter(cache_key, **kw):
+
+    key_pattern = cache_key.get('key')
+    key = format_key(key_pattern, **kw)
+
+    return mc.get(key)
+
+
+def inc_counter(cache_key_reg, delta=1, **kw):
+    key_pattern = cache_key.get('key')
+    key = format_key(key_pattern, **kw)
+
+    mc.inc(key, delta)
+
+
+def set_counter(cache_key_reg, value=0, **kw):
+    key_pattern = cache_key.get('key')
+    key = format_key(key_pattern, **kw)
+
+    return mc.set(key, value)
+
+# def dec_counter(cache_key_reg, delta=1, **kw):
+
+#     mc.dec(key, delta)
