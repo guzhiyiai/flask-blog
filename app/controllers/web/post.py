@@ -20,7 +20,7 @@ def index():
     return render_template('web/index.html', posts=posts)
 
 
-@bp.route('/post/<int:id>', methods=['GET', 'POST'])
+@bp.route('/posts/<int:id>', methods=['GET', 'POST'])
 def post(id):
     form = CommentsForm(request.form)
     post = PostService.get_one(id)
