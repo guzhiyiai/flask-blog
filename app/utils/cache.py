@@ -1,6 +1,8 @@
 #-*- coding:utf-8 -*-
+
 import redis
 import time
+from flask import current_app
 
 
 class RedisCache(object):
@@ -81,6 +83,10 @@ def inc_counter(cache_key, delta=1, **kw):
 def set_counter(cache_key, value=0, **kw):
     key_pattern = cache_key.get('key')
     key = format_key(key_pattern, **kw)
+
+
+    current_app.debug_logger.debug('Cache set - %s', key)
+
 
     return mc.set(key, value)
 

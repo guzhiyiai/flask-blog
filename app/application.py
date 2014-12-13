@@ -18,6 +18,9 @@ def create_app(config=None):
     configure_app(app, config)
     configure_extensions(app)
     configure_blueprints(app)
+    configure_logging(app)
+
+    app.debug_logger.debug(' * Runing in -----* ')
 
     return app
 
@@ -32,6 +35,22 @@ def configure_app(app, config):
 def configure_extensions(app):
     db.app = app
     db.init_app(app)
+
+
+def configure_logging(app):
+
+    import logging
+    from logging import StreamHandler
+
+    class DebugHandler(StreamHandler):
+        def emit(x, record):
+            StreamHandler.emit(x, record) if app.debug else None
+
+    logger = logging.getLogger('app')
+    logger.addHandler(DebugHandler())
+    logger.setLevel(logging.DEBUG)
+
+    app.debug_logger = logger
 
 
 def configure_blueprints(app):
