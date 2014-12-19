@@ -13,6 +13,11 @@ from app.service.comment import CommentService
 from . import bp
 
 
+@bp.route('/test')
+def test():
+
+    return render_template('web/test.html')
+
 @bp.route('/')
 def index():
     posts = PostService.get_posts()

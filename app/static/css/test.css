@@ -1,0 +1,410 @@
+*{
+  margin: 0;
+  padding:0
+}
+
+body {
+    font-family: Verdana, Arial, Helvetica, Sans-serif;
+    font-size: small;
+    color: #666666;
+    background-color: #ffffff;
+    line-height: 1.6em;
+    /*border-bottom: thin dotted #cccccc;*/
+}
+
+/*.clearfix { *zoom: 1;}
+.clearfix:after{
+  content: "";
+  display: block;
+  height: 0;
+  visibility:hidden;
+  clear: both;}*/
+
+/*.wrapper{
+  width: 980px;
+  height: 500px;
+  margin: auto;
+  background-color: #123456;
+}*/
+
+.home-wrapper{
+  width: 100%;
+  height: 700px;
+  background: #d63921;
+}
+
+.home-wrapper .home-header{
+  width: 920px;
+  margin:0 auto;
+  position: relative;
+  background-color: #ececec}
+
+.home-wrapper .logo{
+  float: left;
+  padding-top: 125px;
+}
+
+.home-wrapper .logo a{
+  background-image:url('http://s.ppsrc.com/w/img/app/intro/papa-sprites.$853.png');
+  background-repeat:no-repeat;
+  background-position:0 -1100px;
+  display:block;
+  float:left;
+  width:360px;
+  height:112px;
+  background-color: #d63921;
+  text-indent:-9999px}
+
+.home-wrapper .top-nav{
+  float: right;
+  padding-top: 60px;
+}
+
+.home-wrapper .top-nav a{
+  display:block;
+  width:98px;
+  height:25px;
+  background:url('http://s.ppsrc.com/w/img/app/intro/weblogin-btn.$861.png') no-repeat;
+  text-indent:-9999px}
+
+.home-wrapper .slide-content{
+  width:360px;
+  height: 334px;
+  float:left;
+  clear:left;
+  margin-top:50px}
+
+.home-wrapper .slide-content .download{
+  float:left;
+  width: 276px;
+  height: 184px;
+  margin-top:150px}
+
+.home-wrapper .slide-content .download .download-header{
+  float:left;
+  width:145px;
+  height:184px;
+  position:relative}
+
+
+.home-wrapper .slide-content .download .download-header .iphone{
+  display:block;
+  position:relative;
+  width:145px;
+  height:48px;
+  text-indent:-9999px;
+  margin-bottom:10px;
+  z-index:20;
+  background-image:url('http://s.ppsrc.com/w/img/app/intro/papa-sprites.$853.png');
+  background-repeat:no-repeat;
+  background-position:-199px -585px}
+
+.home-wrapper .slide-content .download .download-header .android{
+  display:block;
+  position:relative;
+  width:145px;
+  height:48px;
+  text-indent:-9999px;
+  margin-bottom:10px;
+  z-index:20;
+  background-image:url('http://s.ppsrc.com/w/img/app/intro/papa-sprites.$853.png');
+  background-repeat:no-repeat;
+  background-position:-199px -641px}
+
+.home-wrapper .slide-content .qr-code{
+  display:block;
+  float:left;
+  width:100px;
+  height:100px;
+  margin-top:4px;
+  margin-left:31px;
+  background:url('http://s.ppsrc.com/w/img/app/intro/qr.$853.png') no-repeat 0 0;
+  text-indent:-9999px}
+
+.home-wrapper .gallery{
+  position:absolute;
+  width:552px;
+  height:680px;
+  right:-24px;
+  top:110px;
+  background:url('http://s.ppsrc.com/w/img/app/intro/gallery.$857.png') no-repeat 0 0}
+
+.post-intro{
+  width:920px;
+  height:150px;
+  margin:0 auto;
+  padding-top:490px;
+  background:url('/static/img/857.png') no-repeat 0 180px}
+
+.post-intro ul li {
+  display: block;
+  float: left;
+  width: 240px;
+  color: #101d3d;
+}
+
+.post-intro ul li h4{
+  font-size:18px;
+  font-weight: 800;
+  margin-bottom: 30px;
+    text-align: center;
+}
+
+.post-intro ul li p{
+  width: 220px;
+  font-size:16px;
+  line-height:24px;
+  display: inline-block;
+  text-align: center;
+}
+
+.post-intro ul .intro-left{
+  padding-left:100px}
+
+.seprate{
+  width:920px;
+  height:1px;
+  margin:120px auto;
+  background:url('http://s.ppsrc.com/w/img/app/intro/line-sprites.$685.png') repeat-x 0 -161px;
+  border:0}
+
+.choiceness {
+  width:960px;
+  margin:-35px auto 0}
+
+.choiceness h4{
+  float:left;
+  width:920px;
+  height:45px;
+  margin:0 auto 30px;
+  text-align:center;
+  text-indent:44px;
+  font-size:34px;
+  font-weight:normal}
+
+.choiceness ul{
+  display:block;
+  width:960px}
+
+.choiceness ul li{
+  display:block;
+  float:left;
+  margin:12px 4px 12px 20px;
+  position:relative}
+
+.choiceness ul li a{
+  display:block;
+  width:212px;
+  height:212px}
+
+.choiceness ul li .content{
+  width:212px;
+  height:212px;
+}
+
+.choiceness ul li a .love-icon{
+  background-image:url('http://s.ppsrc.com/w/img/app/intro/papa-sprites.$853.png');
+  background-repeat:no-repeat;
+  background-position:0 -468px;
+  width:60px;
+  height:16px;
+  line-height:16px;
+  position:absolute;
+  left:12px;
+  bottom:12px;
+  z-index:99;
+  text-align:left;
+  text-indent:20px;
+  color:#fff;
+  font-weight:bold}
+
+.choiceness ul li a .head{
+  width:34px;
+  height:34px;
+  position:absolute;
+  right:12px;
+  bottom:12px;
+  border:2px solid #fff;
+  z-index:99}
+
+.choiceness ul li a .shadow{
+  width:212px;
+  height:43px;
+  background:url('http://s.ppsrc.com/w/img/app/intro/shadow.png') 0 0 repeat-x;
+  position:absolute;
+  left:0;
+  bottom:0;
+  z-index:2;
+  cursor:pointer;}
+
+.choiceness .load-post{
+  width:920px;
+  height:30px;
+  line-height:30px;
+  margin:40px auto 0;
+  text-align:left;
+  background:#f7f7f7;
+  font-size:13px;
+  cursor:pointer;
+  color:#123456}
+
+  .choiceness .load-post .text{
+    display:block;
+    margin:0 auto;
+    width:26px;
+    color:#cecece;}
+
+.footer-container{
+  width: ;
+  clear: both;
+  margin: 0 auto;
+  padding: 95px 0 15px 0;
+  position: relative;
+}
+
+.footer-container .footer{
+  width:920px;
+  height:20px;margin:0 auto;padding-top:14px;
+  border-top:1px solid #e8e8e8;text-align:center;
+  line-height:16px;font-size:12px;
+  color:red}
+
+.footer-container .footer a{
+  color: red;
+  text-decoration:none}
+
+.footer-container .footer span{
+  cursor:pointer}
+
+/*固定右栏左侧自适应
+/*.home-wrapper{
+  width: 980px;
+  height: 500px;
+  margin: auto;
+  background: #d63921;
+}
+
+.home-header{
+  width:100%;
+  height: 90px;
+  margin:0 auto;
+  background-color: #ececec}
+
+#body2{
+  width: 980px;
+  margin: auto;
+}
+
+.aside{
+  float: left;
+  width: 240px;
+  margin-left: -240px;
+  background-color: #ccc;
+}
+
+.main{
+  float: left;
+  width: 100%;
+  background-color: orange;
+}
+
+.footer {
+  clear: left;
+  width: 980px;
+  height: 90px;
+  margin: auto;
+  background-color: #08f;
+}*/
+/*-----------------固定右栏左侧自适应--------------------*/
+
+
+ /*固定左栏右侧自适应*/
+/*.home-wrapper{
+  width: 960px;
+  height: 500px;
+  margin: auto;
+  background: #d63921;
+}
+
+.home-header{
+  width: 100%;
+  height: 90px;
+  margin:0 auto;
+  background-color: #ececec}
+
+#body2{
+  width: 100%;
+  margin: auto;
+}
+
+.aside{
+  float: left;
+  width: 260px;
+  background-color: #ccc;
+}
+
+.main{
+  margin-left: 260px;
+  margin-right: 240px;
+  background-color: orange;
+}
+
+.main2{
+  float: right;
+  width: 240px;
+  background-color: #121212;
+}
+
+.footer {
+  clear: both;
+  width: 960px;
+  height: 90px;
+  margin: auto;
+  background-color: #08f;
+}*/
+ /*---------------------------固定左栏右侧自适应-----------------------*/
+
+
+/*  固定宽度-两列布局 */
+/*
+.home-wrapper{
+  width: 980px;
+  height: 500px;
+  margin: auto;
+  background: #d63921;
+}
+
+.home-header{
+  width:980px;
+  height: 90px;
+  margin:0 auto;
+  background-color: #ececec}
+
+#body2{
+  width: 980px;
+  height: 500px;
+  margin: auto;
+}
+
+.aside{
+  float: left;
+  width: 240px;
+  height: 600px;
+  background-color: #ccc;
+}
+
+.main{
+  float: left;
+  width: 740px;
+  height: 600px;
+  background-color: orange;
+}
+
+.footer {
+  clear: both;
+  width: 980px;
+  height: 90px;
+  margin: auto;
+  background-color: #08f;
+}*/
+/*-------------------------固定宽度-两列布局--------------------------*/
