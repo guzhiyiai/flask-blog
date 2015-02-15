@@ -2,7 +2,7 @@
 
 from flask import Flask
 
-from app.settings import DefaultConfig
+from app.settings import DevelopmentConfig
 from app.controllers.admin import bp as admin_web_bp
 from app.controllers.web import bp as web_bp
 from app.controllers.api import bp as api_bp
@@ -27,7 +27,7 @@ def create_app(config=None):
 
 def configure_app(app, config):
     if not config:
-        config = DefaultConfig
+        config = DevelopmentConfig
 
     app.config.from_object(config)
 
