@@ -5,10 +5,10 @@ from flask import flash, redirect, render_template, request, url_for, session
 
 from . import bp
 
-from app.utils.auth import login_required
+from app.utils.auth import login_required, login_admin, logout_admin
 from app.models import User
 from app.extensions import db
-from app.forms import SignupForm, SigninForm
+from app.forms import SignupForm
 from app.service.user import UserService
 
 
@@ -16,44 +16,39 @@ from app.service.user import UserService
 def signup():
     form = SignupForm()
 
-    if 'email' in session:
+    if 'admin_uid' in session:
         return render_template('admin/index.html', form=form)
 
     if request.method == 'POST':
-        if not form.validate():
-            return render_template('signup.html', form=form)
-        else:
             username = form.username.data
             password = form.password.data
             email = form.email.data
             user = UserService.add_user(username, password, email)
-            session['email'] = user.email
 
             return render_template('admin/signin.html', form=form)
 
     elif request.method == 'GET':
-        return render_template('admin/signup.html', form=form)
+        return render_template('admin/login.html', form=form)
 
 
-@bp.route('/signin', methods=['GET', 'POST'])
-def signin():
-    form = SigninForm()
-
-    if 'email' in session:
-        return render_template('admin/index.html', form=form)
-
+@bp.route('/login', methods=['GET', 'POST'])
+def login():
     if request.method == 'GET':
-        return render_template('admin/signin.html', form=form)
+        return render_template('admin/login.html')
 
-    session['email'] = form.email.data
-    return render_template('admin/index.html', form=form)
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    user = UserService.get_by_email(email)
+
+    if user is not None and UserService.check_password(user['id'], password):
+        login_admin(user['id'])
+        return redirect(url_for('admin.show_posts'))
+
+    return render_template('admin/login.html')
 
 
-@bp.route('/signout')
-@login_required
-def signout():
-    if 'email' not in session:
-        return redirect(url_for('.signin'))
-    session.pop('email', None)
-
-    return redirect(url_for('.signin'))
+@bp.route('/logout', methods=['GET', 'POST'])
+def logout():
+    logout_admin(user['id'])
+    return redirect(url_for('admin.login'))
