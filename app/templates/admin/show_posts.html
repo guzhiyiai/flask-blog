@@ -10,7 +10,7 @@
       <div class="blog-post">
         <h2 class="blog-post-title"><a href="/admin/posts/{{ post.id }}">{{ post.title|safe }}</a></h2>
       </div><!-- /.blog-post -->
-        {% if 'email' in session %}
+        {% if 'admin_uid' in session %}
         [<a href="/admin/posts/{{ post.id }}/update">编辑</a>]
         [<a href="/admin/posts/{{ post.id }}/delete">删除</a>]
         <p> </p>
