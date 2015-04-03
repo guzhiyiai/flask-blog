@@ -1,2 +1,6 @@
-# Calling manager.run() prepares your Manager instance to receive input from the command line.
-# called -> python manage.py runserver
+# -*- coding: utf-8 -*-
+
+说明:
+    1. flask + sqlachemy + mysql
+
+    一个基于 python + flask 的框架，不断学习，不断补充中。
