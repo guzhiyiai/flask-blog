@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from flask import Module
-from flask import flash, redirect, render_template, request, url_for, session
+from flask import flash, redirect, render_template, request, url_for, session, jsonify
 
 from . import bp
 
-from app.utils.auth import login_required, login_admin, logout_admin
+from app.utils.auth import login_required, login_admin, logout_admin, token_required
 from app.models import User
 from app.extensions import db
 from app.forms import SignupForm
 from app.service.user import UserService
+
 
 
 @bp.route('/signup', methods=['GET', 'POST'])
@@ -52,3 +53,19 @@ def login():
 def logout():
     logout_admin(user['id'])
     return redirect(url_for('admin.login'))
+
+
+@bp.route('/api/token')
+@login_required
+def get_auth_token():
+    user_id = session['admin_uid']
+    token = UserService.generate_auth_token(user_id)
+    session['token'] = token
+    return jsonify({ 'token': token.decode('ascii') })
+
+
+@bp.route('/api/resource')
+@token_required
+def get_resource():
+    return jsonify({ 'resource': "hello, world!" })
+

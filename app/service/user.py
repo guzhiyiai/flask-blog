@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired
 from werkzeug import generate_password_hash, check_password_hash
 
 from app.models import User
 from app.extensions import db
+
+from app.settings import DevelopmentConfig
 
 
 class UserService(object):
@@ -26,3 +29,21 @@ class UserService(object):
     def get_by_email(email):
         user = User.query.filter_by(email=email).first()
         return user and user.to_dict()
+
+    @staticmethod
+    def generate_auth_token(user_id, expiration=600):
+        s = Serializer(DevelopmentConfig.SECRET_KEY, expires_in=expiration)
+        return s.dumps({ 'user_id': user_id})
+
+    @staticmethod
+    def verify_auth_token(token):
+        s = Serializer(DevelopmentConfig.SECRET_KEY)
+        try:
+            data = s.loads(token)
+        except SignatureExpired:
+            return None # valid token, but expired
+        except BadSignature:
+            return None # invalid token
+        user = User.query.get(data['user_id'])
+        return user
+
