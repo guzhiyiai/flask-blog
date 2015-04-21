@@ -12,7 +12,6 @@ from app.forms import SignupForm
 from app.service.user import UserService
 
 
-
 @bp.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
@@ -20,22 +19,22 @@ def signup():
     if 'admin_uid' in session:
         return render_template('admin/index.html', form=form)
 
-    if request.method == 'POST':
-            username = form.username.data
-            password = form.password.data
-            email = form.email.data
-            user = UserService.add_user(username, password, email)
-
-            return render_template('admin/signin.html', form=form)
-
-    elif request.method == 'GET':
-        return render_template('admin/login.html', form=form)
-
-
-@bp.route('/login', methods=['GET', 'POST'])
-def login():
     if request.method == 'GET':
-        return render_template('admin/login.html')
+        return render_template('admin/signup.html', form=form)
+
+    username = form.username.data
+    password = form.password.data
+    email = form.email.data
+
+    user = UserService.add_user(username, password, email)
+
+    return render_template('admin/signin.html', form=form)
+
+
+@bp.route('/signin', methods=['GET', 'POST'])
+def signin():
+    if request.method == 'GET':
+        return render_template('admin/signin.html')
 
     email = request.form.get('email')
     password = request.form.get('password')
@@ -46,13 +45,13 @@ def login():
         login_admin(user['id'])
         return redirect(url_for('admin.show_posts'))
 
-    return render_template('admin/login.html')
+    return render_template('admin/signin.html')
 
 
-@bp.route('/logout', methods=['GET', 'POST'])
-def logout():
-    logout_admin(user['id'])
-    return redirect(url_for('admin.login'))
+@bp.route('/signout', methods=['GET', 'POST'])
+def signout():
+    logout_admin()
+    return redirect(url_for('admin.signin'))
 
 
 @bp.route('/api/token')

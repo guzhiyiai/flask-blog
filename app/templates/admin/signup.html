@@ -3,16 +3,11 @@
 {% block content %}
   <h2>Sign up</h2>
 
-    <form class="form-signin" action="" method="post">
-        <div class="login-wrap">
-            <input name="name" type="text" class="form-control" placeholder="用户名" value="{{ name }}" autofocus>
-            <input name="email" type="text" class="form-control" placeholder="邮箱" value="{{ email }}" autofocus>
-            <input name="password" type="password" class="form-control" placeholder="密码">
-
-            <button class="btn btn-lg btn-login btn-block" type="submit">
-                <i class="fa fa-check"></i>
-            </button>
-        </div>
+    <form action="" method="post">
+        <input name="username" type="text" class="form-control" placeholder="用户名" value="{{ name }}" autofocus>
+        <input name="email" type="text" class="form-control" placeholder="邮箱" value="{{ email }}" autofocus>
+        <input name="password" type="password" class="form-control" placeholder="密码">
+        <button class="btn btn-lg btn-login btn-block" type="submit"></button>
     </form>
 
 {% endblock %}

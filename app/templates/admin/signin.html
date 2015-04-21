@@ -1,21 +1,19 @@
 {% extends "admin/base.html" %}
 
 {% block content %}
-  <h2>Login</h2>
+  <h2>Sin In</h2>
 
     <form class="form-signin" action="" method="post">
         <div class="form-signin-heading text-center">
-            <h1 class="sign-title">礼物说管理员登陆</h1>
-            <img src="/static/admin/images/lws-logo.png" alt=""/>
+            <h1 class="sign-title">管理员登陆</h1>
         </div>
+
         <div class="login-wrap">
             <input name="email" type="text" class="form-control" placeholder="邮箱" value="{{ email }}" autofocus>
             <input name="password" type="password" class="form-control" placeholder="密码">
-
             <button class="btn btn-lg btn-login btn-block" type="submit">
                 <i class="fa fa-check"></i>
             </button>
-
         </div>
 
 
