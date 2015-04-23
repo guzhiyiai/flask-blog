@@ -31,6 +31,11 @@ class UserService(object):
         return user and user.to_dict()
 
     @staticmethod
+    def get(user_id):
+        user = User.query.filter_by(id=user_id).first()
+        return user and user.to_dict()
+
+    @staticmethod
     def generate_auth_token(user_id, expiration=600):
         s = Serializer(DevelopmentConfig.SECRET_KEY, expires_in=expiration)
         return s.dumps({ 'user_id': user_id})

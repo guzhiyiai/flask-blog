@@ -68,3 +68,11 @@ def get_auth_token():
 def get_resource():
     return jsonify({ 'resource': "hello, world!" })
 
+
+@bp.route('/users/<int:user_id>', methods=['GET', 'POST'])
+def get_my_profile(user_id):
+    user = UserService.get(user_id)
+    if not user:
+        pass
+    # return jsonify({ 'resource': "hello, world!" })
+    return render_template('admin/user.html', user=user)

@@ -5,8 +5,8 @@
     {% if 'admin_uid' in session %}
     <li><a href="{{ url_for('.show_posts') }}">All Posts</a></li>
     <li><a href="{{ url_for('.add_post') }}">Add post</a><li>
-    <li><a href="{{ url_for('admin.logout') }}">Logout</a></li>
+    <li><a href="{{ url_for('admin.signout') }}">Sign Out</a></li>
     {% else %}
-    <li><a href="{{ url_for('admin.login') }}">Login</a></li>
+    <li><a href="{{ url_for('admin.signin') }}">Sign In</a></li>
     {% endif %}
 {% endblock %}
