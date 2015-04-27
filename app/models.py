@@ -7,11 +7,36 @@ from werkzeug import generate_password_hash, check_password_hash
 from app.extensions import db
 
 
+class Permission:
+    READ = 0x04
+    WRITE = 0x02
+    ACCESS = 0x01
+
+
+class Role(db.Model):
+    __tablename__ = 'role'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64))
+    default = db.Column(db.Boolean, default=False, index=True)
+    permissions = db.Column(db.Integer)
+
+    user_id = db.Column(db.Integer)
+
+
 class UserRole:
 
     USER = 0
     ADMIN = 1
     EDITOR = 2
+
+    roles = {
+        'User': (Permission.READ |
+                 Permission.WRITE |
+                 Permission.ACCESS, True),
+        'Anonymous': (Permission.READ, False),
+        'Administrator': (0xff, False)
+    }
 
 
 class User(db.Model):
@@ -23,6 +48,9 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True)
     role = db.Column(db.Integer, index=True,
                      default=UserRole.USER, nullable=False)
+
+    location = db.Column(db.String(64))
+    description = db.Column(db.Text())
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -82,7 +110,9 @@ class Comment(db.Model):
     comments = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.now)
 
+    user_id = db.Column(db.Integer)
     post_id = db.Column(db.Integer)
+
 
     def to_dict(self):
         return dict(
