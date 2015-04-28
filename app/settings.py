@@ -14,7 +14,7 @@ class DevelopmentConfig(Config):
 
     # session
     CSRF_ENABLED = True
-    SECRET_KEY = "gSf3Xd8y]w8vd0z"
+    SECRET_KEY = "asgSfsf3Xd8ffy]fw8vfd0zbvssqwertsd4sdwe"
 
     # datebase
     SQLALCHEMY_DATABASE_URI = "mysql://root:abc123@localhost/my-blog"
@@ -30,8 +30,13 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
 
     ENV = 'production'
+    # SQLALCHEMY_DATABASE_URI =
 
 
-class StagingConfig(Config):
+config = {
+    'development': DevelopmentConfig,
+    'testing': TestingConfig,
+    'production': ProductionConfig,
 
-    ENV = 'staging'
+    'default': DevelopmentConfig
+}
