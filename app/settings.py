@@ -21,16 +21,23 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_ECHO = True
 
 
+
 class TestingConfig(Config):
 
     ENV = 'testing'
     TESTING = True
 
 
+class StagingConfig(Config):
+
+    ENV = 'staging'
+    TESTING = True
+
+
 class ProductionConfig(Config):
 
     ENV = 'production'
-    # SQLALCHEMY_DATABASE_URI =
+    DEBUG = False
 
 
 config = {
