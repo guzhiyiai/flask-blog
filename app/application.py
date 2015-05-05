@@ -6,7 +6,9 @@ from app.settings import DevelopmentConfig
 from app.controllers.admin import bp as admin_web_bp
 from app.controllers.web import bp as web_bp
 from app.controllers.api import bp as api_bp
+
 from app.extensions import db
+from app.extensions import mail
 
 
 DEFAULT_APP_NAME = 'app'
@@ -33,8 +35,9 @@ def configure_app(app, config):
 
 
 def configure_extensions(app):
-    db.app = app
+
     db.init_app(app)
+    mail.init_app(app)
 
 
 def configure_logging(app):

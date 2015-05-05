@@ -3,13 +3,14 @@
 from flask import Module
 from flask import flash, redirect, render_template, request, url_for, session, jsonify
 
-from . import bp
-
-from app.utils.auth import login_required, login_admin, logout_admin, token_required
 from app.models import User
-from app.extensions import db
 from app.forms import SignupForm
 from app.service.user import UserService
+from app.extensions import db
+from app.external_service import send_email
+from app.utils.auth import login_required, login_admin, logout_admin, token_required
+
+from . import bp
 
 
 @bp.route('/signup', methods=['GET', 'POST'])
@@ -28,7 +29,31 @@ def signup():
 
     user = UserService.add_user(username, password, email)
 
+    token = UserService.generate_email_token(user['email'])
+
+    confirm_url = url_for('admin.confirm_email', token=token, external=True)
+    html = render_template('admin/email.html', confirm_url=confirm_url)
+    subject = "Please confirm your email"
+    sender = 'bababa'
+    send_email(subject, sender, user['email'], html)
+
     return render_template('admin/signin.html', form=form)
+
+
+@bp.route('/confirm/<token>', methods=['GET'])
+def confirm_email(token):
+    try:
+        email = UserService.verify_email_token(token)
+    except:
+        flash('The confirmation link is invalid or has expired.', 'danger')
+
+    user = UserService.get_by_email(email['email'])
+    if user['confirmed']:
+        flash('Account already confirmed. Please login.', 'success')
+    else:
+        UserService.update_confirmed_user(email['email'])
+        flash('You have confirmed your account. Thanks!', 'success')
+    return redirect(url_for('admin.signin'))
 
 
 @bp.route('/signin', methods=['GET', 'POST'])
@@ -60,13 +85,13 @@ def get_auth_token():
     user_id = session['admin_uid']
     token = UserService.generate_auth_token(user_id)
     session['token'] = token
-    return jsonify({ 'token': token.decode('ascii') })
+    return jsonify({'token': token.decode('ascii')})
 
 
 @bp.route('/api/resource')
 @token_required
 def get_resource():
-    return jsonify({ 'resource': "hello, world!" })
+    return jsonify({'resource': "hello, world!"})
 
 
 @bp.route('/users/<int:user_id>', methods=['GET', 'POST'])
