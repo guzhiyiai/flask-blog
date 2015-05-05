@@ -43,9 +43,13 @@ class User(db.Model):
     __tablename__ = 'user'
 
     id = db.Column(db.Integer, primary_key=True)
+
     username = db.Column(db.String(64))
     password = db.Column(db.String(128))
     email = db.Column(db.String(100), unique=True)
+    confirmed = db.Column(db.Boolean, nullable=False, default=False)
+    confirmed_on = db.Column(db.DateTime, nullable=True)
+
     role = db.Column(db.Integer, index=True,
                      default=UserRole.USER, nullable=False)
 
@@ -59,6 +63,7 @@ class User(db.Model):
             id=self.id,
             username=self.username,
             email=self.email,
+            confirmed=self.confirmed,
             role=self.role)
 
 
